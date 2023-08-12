@@ -15,6 +15,7 @@ import ListItemText from '@mui/material/ListItemText';
 
 import Button from '@mui/material/Button';
 import MenuIcon from '@mui/icons-material/Menu';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 // import DrawerFunction from '../../DrawerFunction';
 import './Home.css'
@@ -175,12 +176,30 @@ function Home() {
 
 </div>
 <div className="Home-body">
-  <h1>Categories</h1>
-<div className="Home-category">
+  <div className="head-dress"> <h1>Dress</h1></div>
+  
+<div className="Home-dress">
 
-<div className="category-box">
+<div className="men-box">
+  <div className="a1"> <h3>SHOP</h3></div>
+  <div className="a2"><p>Men's Fashion</p></div>
+  <div className="aicon"><ArrowForwardIcon fontSize="small"/></div>
 
 </div>
+<div className="women-box">
+<div className="a1"> <h3>SHOP</h3></div>
+  <div className="a2"><p>Women's Fashion</p></div>
+  <div className="aicon"><ArrowForwardIcon fontSize="small"/></div>
+
+</div>
+<div className="kid-box">
+<div className="a1"> <h3>SHOP</h3></div>
+  <div className="a2"><p>Kid's Fashion</p></div>
+  <div className="aicon"><ArrowForwardIcon fontSize="small"/></div>
+</div>
+
+</div>
+<div className="home-shoes-1">
 
 </div>
 

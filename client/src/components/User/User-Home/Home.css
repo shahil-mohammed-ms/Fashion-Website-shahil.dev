@@ -31,4 +31,62 @@ background-position: center;
   display: flex;
   margin-left: 150px;
 }
+.head-dress{
+  font-size: xx-large;
+  padding-left: 50px;
+  padding-top: 10px;
+}
+.Home-dress{
+  display: flex;
+  gap: 20px;
+  padding-left: 100px;
+  padding-top: 20px;
+}
+.men-box{
+height: 350px;
+width: 400px;
+background-color: #aa7575;
+background-image: url('https://img.freepik.com/premium-photo/young-bearded-man-model-fashion-sitting-urban-step-wearing-casual-clothes_1139-1325.jpg?w=900');
+background-size: cover;
+color: white;
+padding-top: 50px;
+padding-left: 30px;
+}
+.aicon{
+  margin-top: 5px;
+  padding: 5px;
+  background-color: rgba(255, 255, 255, 0.3);
+border-radius: 50px;
+height: 30px;
+width: 30px;
+transition: transform 0.3s, background-color 0.3s;
+}
+ .aicon:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+  transform: scale(1.1);
+}
 
+.women-box{
+  height: 350px;
+  width: 300px;
+  color: white;
+  padding-top: 50px;
+padding-left: 30px;
+  background-image: url('https://images.unsplash.com/photo-1618244972963-dbee1a7edc95?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80');
+  background-size: cover;
+}
+.kid-box{
+  height: 350px;
+  width: 250px;
+  background-image: url('https://images.pexels.com/photos/1619815/pexels-photo-1619815.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+background-size: cover;
+color: white;
+padding-top: 240px;
+padding-left: 30px;
+}
+
+.home-shoes-1{
+  margin-top: 30px;
+  height: 100px;
+  background-color: #7d4a4a;
+}
