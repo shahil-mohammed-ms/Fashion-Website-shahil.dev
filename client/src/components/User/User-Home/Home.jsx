@@ -4,6 +4,8 @@ import Fab from '@mui/material/Fab';
 import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
@@ -176,7 +178,7 @@ function Home() {
 
 </div>
 <div className="Home-body">
-  <div className="head-dress"> <h1>Dress</h1></div>
+  {/* <div className="head-dress"> <h1>Dress</h1></div> */}
   
 <div className="Home-dress">
 
@@ -199,7 +201,48 @@ function Home() {
 </div>
 
 </div>
+{/* <div className="head-dress"><h1 >Foot Wear</h1></div> */}
 <div className="home-shoes-1">
+
+<div className="aicon aicon-left"><NavigateBeforeIcon fontSize="large"/></div>
+<div className="aicon aicon-right"><NavigateNextIcon fontSize="large"/></div>
+<div className="shoe-box-content">
+<div className="a1"> <h3>SHOP</h3></div>
+  <div className="a2"><p>Foot Wear</p></div>
+  <div className="aicon"><ArrowForwardIcon fontSize="small"/></div>
+</div>
+
+
+</div>
+{/* <div className="head-dress"><h1 >Cosmetics & </h1></div> */}
+<div className="cosmetics-grooming">
+<div className="cosmetics-box">
+<div className="a1"> <h3>SHOP</h3></div>
+  <div className="a2"><p>Women's Fashion</p></div>
+  <div className="aicon"><ArrowForwardIcon fontSize="small"/></div>
+</div>
+<div className="grooming-box">
+<div className="a1"> <h3>SHOP</h3></div>
+  <div className="a2"><p>Women's Fashion</p></div>
+  <div className="aicon"><ArrowForwardIcon fontSize="small"/></div>
+</div>
+<div className="handbags-box">
+<div className="a1"> <h3>SHOP</h3></div>
+  <div className="a2"><p>Women's Fashion</p></div>
+  <div className="aicon"><ArrowForwardIcon fontSize="small"/></div>
+
+</div>
+
+</div><div className="home-watch-1">
+
+<div className="aicon aicon-left"><NavigateBeforeIcon fontSize="large"/></div>
+<div className="aicon aicon-right"><NavigateNextIcon fontSize="large"/></div>
+<div className="watch-box-content">
+<div className="a1"> <h3>SHOP</h3></div>
+  <div className="a2"><p>Watch</p></div>
+  <div className="aicon"><ArrowForwardIcon fontSize="small"/></div>
+</div>
+
 
 </div>
 

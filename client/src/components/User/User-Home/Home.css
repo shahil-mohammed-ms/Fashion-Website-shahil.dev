@@ -1,3 +1,7 @@
+.home{
+background-color:#FFFAF0;
+
+}
 .homeHeader{
 display: flex;
 height: 500px;
@@ -89,4 +93,97 @@ padding-left: 30px;
   margin-top: 30px;
   height: 100px;
   background-color: #7d4a4a;
+  height: 400px;
+width: 1000px;
+background-image: url('https://images.unsplash.com/photo-1473010350295-2c82192ebd8e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+background-size: cover;
+background-position: center;
+margin-left: 100px;
+position: relative;
+color: white;
+
+}
+.shoe-box-content{
+margin-left: 70px;
+padding-top: 50px;
+
+}
+
+ .aicon-left{
+left: -20px;
+ position: absolute;
+ margin-top: 200px;
+ height: 50px;
+width: 50px;
+padding-top: 8px;
+}
+.aicon-right{
+  position: absolute;
+  right: 0;
+  margin-right: -23px;
+  margin-top: 200px;
+  height: 50px;
+width: 50px;
+padding-top: 8px;
+
+}
+
+
+.cosmetics-grooming{
+display: flex;
+padding-top: 50px;
+gap: 20px;
+
+}
+.cosmetics-box{
+height: 350px;
+width: 200px;
+background-image: url('https://images.unsplash.com/photo-1552046122-03184de85e08?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80');
+background-size: cover;
+margin-left: 100px;
+color: white;
+padding-top: 20px;
+padding-left: 10px;
+}
+.grooming-box{
+height: 350px;
+width: 400px;
+background-image: url('https://images.unsplash.com/photo-1553265331-3032aacd1a76?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80');
+background-size: cover;
+color: white;
+padding-top: 20px;
+padding-left: 10px;
+}
+
+.handbags-box{
+  height: 350px;
+width: 360px;
+background-image: url('https://images.unsplash.com/photo-1596552639068-99bd471b579c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=435&q=80');
+background-size: cover;
+background-position: center;
+color: white;
+padding-top: 250px;
+padding-left: 250px;
+}
+
+
+
+.home-watch-1{
+  margin-top: 30px;
+  height: 100px;
+  background-color: #7d4a4a;
+  height: 400px;
+width: 1000px;
+background-image: url('https://images.unsplash.com/photo-1511370235399-1802cae1d32f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2055&q=80');
+background-size: cover;
+background-position: center;
+margin-left: 100px;
+position: relative;
+color: white;
+
+}
+.watch-box-content{
+margin-left: 70px;
+padding-top: 50px;
+
 }
