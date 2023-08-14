@@ -37,6 +37,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 
+import './Test.css'
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -101,7 +102,7 @@ function TestEnv() {
 
     setState({ ...state, [anchor]: open });
   };
-
+  const boxCount = 10;
   const list = (anchor) => (
     <Box
       sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
@@ -267,6 +268,15 @@ function TestEnv() {
         </React.Fragment>
       ))}
     </div>
+
+
+<div className="box-demo">
+{Array.from({ length: 10 }).map((_, index) => (
+        <div key={index} className="boxes"></div>
+      ))}
+
+</div>
+
 
    </>
   )

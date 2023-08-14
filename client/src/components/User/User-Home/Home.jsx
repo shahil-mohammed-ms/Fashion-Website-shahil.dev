@@ -218,17 +218,17 @@ function Home() {
 <div className="cosmetics-grooming">
 <div className="cosmetics-box">
 <div className="a1"> <h3>SHOP</h3></div>
-  <div className="a2"><p>Women's Fashion</p></div>
+  <div className="a2"><p>Cosmetic's</p></div>
   <div className="aicon"><ArrowForwardIcon fontSize="small"/></div>
 </div>
 <div className="grooming-box">
 <div className="a1"> <h3>SHOP</h3></div>
-  <div className="a2"><p>Women's Fashion</p></div>
+  <div className="a2"><p>Grooming</p></div>
   <div className="aicon"><ArrowForwardIcon fontSize="small"/></div>
 </div>
 <div className="handbags-box">
 <div className="a1"> <h3>SHOP</h3></div>
-  <div className="a2"><p>Women's Fashion</p></div>
+  <div className="a2"><p>Hand Bag's</p></div>
   <div className="aicon"><ArrowForwardIcon fontSize="small"/></div>
 
 </div>

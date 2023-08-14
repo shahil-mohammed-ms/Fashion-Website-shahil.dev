@@ -1,0 +1,19 @@
+.box-demo{
+  width: 300px;
+
+  border: 2px solid black;
+padding: 10px;
+padding-top: 20px;
+gap: 10px;
+display: flex;
+flex-wrap: wrap;
+
+}
+
+.boxes{
+width: 50px;
+flex-basis: calc(20% - 10px);
+height: 50px;
+background-color: #963030;
+
+}
