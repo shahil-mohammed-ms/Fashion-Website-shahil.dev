@@ -43,7 +43,10 @@ function Products() {
 
   return (
     <div className="product-main">
+      
       <div className="topContent">
+
+        
         <div className="sideBar">
           <h1>Fashion-Hub</h1>
           <div className='side-box a'>
@@ -93,6 +96,20 @@ function Products() {
 
         </div>
         <div className="product-main-sub">
+
+          <div className="product-header">
+          <Box>
+              <Fab variant='extended'>
+
+              </Fab>
+            </Box>
+            <Box>
+              <Fab variant='extended'>
+shahil mohammed
+              </Fab>
+            </Box>
+
+          </div>
           
         {Array.from({ length: 10 }).map((_, index) => (
         <div key={index} className="product-boxes">

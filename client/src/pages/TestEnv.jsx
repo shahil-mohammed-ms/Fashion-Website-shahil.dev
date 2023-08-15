@@ -152,7 +152,7 @@ function TestEnv() {
       <Fab  aria-label="like">
         <FavoriteIcon />
       </Fab>
-      <Fab  aria-label="likedd">
+      <Fab  aria-label="liked">
       <AccessTimeFilledIcon />
       </Fab>
      

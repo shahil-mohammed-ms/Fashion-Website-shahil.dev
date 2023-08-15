@@ -1,7 +1,16 @@
 .product-main{
 
-  
+  position: relative;
   }
+.product-header{
+ display: flex;
+ position: absolute;
+ top: 10px;
+ right: 30px;
+ gap: 10px;
+}
+
+
   .topContent{
 
     display: flex;
@@ -29,6 +38,7 @@ flex: 1;
 }
 .product-main-sub{
  padding-left: 40px;
+ padding-top: 80px;
 
   flex: 3;
   min-height: 1000px;
