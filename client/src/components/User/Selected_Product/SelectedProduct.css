@@ -4,11 +4,13 @@
 .s-product-Top{
 display: flex;
 width: 100%;
+margin-left: 20px;
 
 }
 .imgAndContent{
 display: flex;
 padding: 20px;
+padding-left: 50px;
 
 }
 .p-image{
@@ -16,8 +18,38 @@ width: 400px;
 height: 500px;
 background-image: url('https://images.unsplash.com/photo-1618244972963-dbee1a7edc95?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80');
 background-size: cover;
+
+
 }
 .p-content{
+padding-left: 100px;
+padding-top: 40px;
+display: flex;
+
+}
+.p-content-header h1{
 
 
+}
+.p-contnt-price{
+  font-size: larger;
+  font-style: italic;
+  padding-top: 30px;
+}
+.p-quantity{
+  display: flex;
+  padding-top: 30px;
+  padding-left: 50px;
+}
+.p-addtocartWishlist{
+display: flex;
+padding-top: 30px;
+}
+.sizes{
+  padding-top: 20px;
+}
+
+.sizecomponent{
+  padding: 30px;
+  color: green;
 }
