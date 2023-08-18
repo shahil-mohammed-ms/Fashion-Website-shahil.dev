@@ -74,6 +74,26 @@ function SelectedProduct() {
       </Fab>
 </Box>
 </div>
+<div className="sizes">
+  <div className="size-header"><h2>size</h2></div>
+  <div className="sizecomponent">
+
+ 
+    <Box sx={{ width: 300 }}>
+      <Slider
+        aria-label="Size"
+        defaultValue={0}
+        getAriaValueText={valuetext}
+        color="secondary"
+        step={null}
+        marks={marks}
+        min={0}
+        max={4}
+      />
+    </Box>
+
+  </div>
+</div>
 <div className="p-addtocartWishlist">
 {true ? (
   <div className="p-addtowishlist">
@@ -85,7 +105,7 @@ function SelectedProduct() {
     </Box>
   </div>
 ) : (
-  <div className="p-addtowishlist">
+  <div className="p-addtowishlist"> 
     <Box sx={{ '& > :not(style)': { m: 1 } }}>
       <Fab variant="extended">
         <StarIcon sx={{ mr: 1 }} />
@@ -107,28 +127,6 @@ function SelectedProduct() {
 
 
 </div>
-<div className="sizes">
-  <div className="size-header"><h2>size</h2></div>
-  <div className="sizecomponent">
-
- 
-    <Box sx={{ width: 300 }}>
-      <Slider
-        aria-label="Size"
-        defaultValue={0}
-        getAriaValueText={valuetext}
-       
-        step={null}
-        marks={marks}
-        min={0}
-        max={4}
-      />
-    </Box>
-
-  </div>
-</div>
-
-
   </div>
   <div className="p-content-right">
 
@@ -144,7 +142,7 @@ function SelectedProduct() {
 
 
 
-  
+
 </div>
 
 

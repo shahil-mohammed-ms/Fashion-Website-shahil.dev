@@ -46,10 +46,10 @@ display: flex;
 padding-top: 30px;
 }
 .sizes{
-  padding-top: 20px;
+  padding-top: 5px;
 }
 
 .sizecomponent{
-  padding: 30px;
-  color: green;
+  padding: 20px;
+  
 }
