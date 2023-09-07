@@ -1,8 +1,10 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/User/HomePage";
 import TestEnv from "./pages/TestEnv";
+import TestOne from "./pages/TestOne";
 import ProductsPage from "./pages/User/ProductsPage";
 import SeletedProductPage from "./pages/User/SeletedProductPage";
+import AdminHomePage from "./pages/Admin/AdminHomePage";
 import './App.css'
 function App() {
 
@@ -23,6 +25,13 @@ function App() {
 <Route path="/test" element={<TestEnv/>}/>
 </Routes>
 
+<Routes>
+<Route path="/adminHome" element={<AdminHomePage/>}/>
+</Routes>
+
+<Routes>
+<Route path="/testtwo" element={<TestOne/>}/>
+</Routes>
 
 
 

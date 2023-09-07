@@ -48,9 +48,9 @@ flex: 1;
   
 }
 
-.product-boxes {
+/* .product-boxes {
   width: 300px;
-  /* flex-basis: calc(50% - 30px); */
+  
   height: 400px;
   background-color: lightgray;
   transition: background-color 0.3s;
@@ -68,6 +68,23 @@ flex: 1;
   to {
     transform: scale(1);
   }
+} */
+.product-boxes {
+  width: 300px;
+  height: 400px;
+  background-color: lightgray;
+  
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.product-boxes:hover {
+  transform: scale(0.95); /* Scale down the element on hover */
+}
+
+.product-boxes:active {
+  transform: scale(0.9); /* Further scale down on click */
+  transition: transform 0.1s ease-in-out; /* Faster transition on click */
 }
 
 

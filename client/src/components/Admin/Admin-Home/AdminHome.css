@@ -1,0 +1,87 @@
+.main-admin{
+  width: 100vw; /* Full viewport width */
+
+}
+.admin-content{
+  /* background: linear-gradient(to right, #ff6b6b, #ffa1a1);  */
+
+  background-color: #e0e8f0; 
+
+ padding: 10px;
+
+height: 300vh;
+width: 100%;
+}
+.header-admin{
+  
+  display: flex;
+  gap: 10px;
+ padding: 10px;
+ padding-top: 20px;
+}
+.header-right{
+  display: flex;
+  margin-left: 700px;
+  gap: 5px;
+
+}
+.header-left{
+display: inline-block;
+}
+.header-left h1 {
+  margin-left: 10px;
+}
+.bottom-admin{
+ 
+width: 100%;
+padding-top: 60px;
+padding-left: 120px;
+
+}
+.top-carousel{
+  gap: 100px;
+  display: flex;
+}
+.middle-carousel{
+  display: flex;
+  gap: 100px;
+margin-top: 30px;
+}
+
+.carousel-box {
+  width: 250px;
+  height: 300px;
+  background: linear-gradient(45deg, #3498db, #8e44ad);
+  color: #ffffcc; /* Cream-colored text */
+
+gap: 10px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.carousel-box:hover {
+  transform: scale(0.95); /* Scale down the element on hover */
+}
+
+.carousel-box:active {
+  transform: scale(0.9); /* Further scale down on click */
+  transition: transform 0.1s ease-in-out; /* Faster transition on click */
+}
+.custom-large-icon {
+  font-size: 58px !important; /* Adjust the size as needed */
+}
+
+.footer-admin{
+  width: 100%;
+  height: 100px;
+  background-color: #8b3b3b;
+
+}
+.dashboard-box{
+  width: 600px;
+  }

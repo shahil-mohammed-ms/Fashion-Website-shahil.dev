@@ -19,7 +19,6 @@ const AuthRouter = require('../Route/Auth')
 const AdminRouter = require('../Route/Admin')
 const UserRouter = require('../Route/User')
 
-
 app.use("/image", express.static(path.join(__dirname, "../Public")));
 
 app.use('/',AuthRouter)
