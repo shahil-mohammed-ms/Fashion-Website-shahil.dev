@@ -5,6 +5,7 @@ import TestOne from "./pages/TestOne";
 import ProductsPage from "./pages/User/ProductsPage";
 import SeletedProductPage from "./pages/User/SeletedProductPage";
 import AdminHomePage from "./pages/Admin/AdminHomePage";
+import AddAdminProduct from "./pages/Admin/AddAdminProduct";
 import './App.css'
 function App() {
 
@@ -27,6 +28,9 @@ function App() {
 
 <Routes>
 <Route path="/adminHome" element={<AdminHomePage/>}/>
+</Routes>
+<Routes>
+<Route path="/adminAddProduct" element={<AddAdminProduct/>}/>
 </Routes>
 
 <Routes>

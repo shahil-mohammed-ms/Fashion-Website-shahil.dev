@@ -2,7 +2,8 @@ const mongoose = require('mongoose')
 
 const ProductSchema = new mongoose.Schema({
 sellerId : {
-  type:mongoose.Schema.Types.ObjectId
+  // type:mongoose.Schema.Types.ObjectId
+  type:String
 },
 name:{
   type:String
@@ -10,28 +11,29 @@ name:{
 price:{
   type:Number
 },
-imageUrl: [
-  {
-    type: String, required: true 
-  }
-],
-
+// imageUrl: [
+//   {
+//     type: String, required: true 
+//   }
+// ],
 quantity:{
   type:Number
 },
 category:{
   type:String
 },
-brand:{
-  type:string
-},
+description:{
+  type:String,
+  required:true
+},  
 discound:{
   isDiscound:{
     type:Boolean,
     default:false
   },
   discoundPercentage:{
-    type:Number
+    type:Number,
+    default:0
   }
 },
 coupon:{
@@ -45,23 +47,36 @@ size:{
     type:Boolean,
     default:false
   },
-  sizes:{
-    s:{type:Number },
-    m:{type:Number},
-    l:{type:Number},
-    xl:{type:Number},
-    xxl:{type:Number}
-  }
+  sizes:[
+    {s:{type:Number,default:0 }},
+    {m:{type:Number,default:0}},
+   { l:{type:Number,default:0}},
+    {xl:{type:Number,default:0}},
+   { xxl:{type:Number,default:0}}
+  ]
 },
-colour:{
-  isColor:{
+Kidsize:{
+  isSize:{
     type:Boolean,
     default:false
   },
-  colours:{
-    type:Array
-  }
+  Kidsizes:[
+    {zeroToOne:{type:Number,default:0 }},
+    {oneToTwo:{type:Number,default:0}},
+   { twoToThree:{type:Number,default:0}},
+    {threeToFour:{type:Number,default:0}},
+   { fourToFive:{type:Number,default:0}}
+  ]
 },
+// colour:{
+//   isColor:{
+//     type:Boolean,
+//     default:false
+//   },
+//   colours:{
+//     type:Array
+//   }
+// },
 review:[
  { id:{
    type:mongoose.Schema.Types.ObjectId
@@ -73,14 +88,16 @@ rating:{
   default:0
 },
 totalReviews:{
-  type:Number
+  type:Number,
+  default:0
 },
 isStockOut:{
   type:Boolean,
   default:false
 },
 soldUnit:{
-  type:number
+  type:Number,
+  default:0
 },
 createdAt: { type: Date, default: Date.now }
 
