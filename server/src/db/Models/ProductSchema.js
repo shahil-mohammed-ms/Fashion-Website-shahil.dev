@@ -11,11 +11,11 @@ name:{
 price:{
   type:Number
 },
-// imageUrl: [
-//   {
-//     type: String, required: true 
-//   }
-// ],
+imageUrl: 
+  [{
+    type: String, required: true 
+  }]
+,
 quantity:{
   type:Number
 },
@@ -65,18 +65,8 @@ Kidsize:{
     {oneToTwo:{type:Number,default:0}},
    { twoToThree:{type:Number,default:0}},
     {threeToFour:{type:Number,default:0}},
-   { fourToFive:{type:Number,default:0}}
   ]
 },
-// colour:{
-//   isColor:{
-//     type:Boolean,
-//     default:false
-//   },
-//   colours:{
-//     type:Array
-//   }
-// },
 review:[
  { id:{
    type:mongoose.Schema.Types.ObjectId
