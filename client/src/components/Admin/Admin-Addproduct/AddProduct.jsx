@@ -1,30 +1,10 @@
 import React, { useState } from "react";
 import axios from "../../../axios";
-import Breadcrumbs from "@mui/material/Breadcrumbs";
-import HomeIcon from "@mui/icons-material/Home";
-import { emphasize, styled } from "@mui/material/styles";
-import Chip from "@mui/material/Chip";
+import jwt_decode from 'jwt-decode';
+
+import Header from "../Header";
 import "./AddProduct.css";
 
-const StyledBreadcrumb = styled(Chip)(({ theme }) => {
-  const backgroundColor =
-    theme.palette.mode === "light"
-      ? theme.palette.grey[100]
-      : theme.palette.grey[800];
-  return {
-    backgroundColor,
-    height: theme.spacing(3),
-    color: theme.palette.text.primary,
-    fontWeight: theme.typography.fontWeightRegular,
-    "&:hover, &:focus": {
-      backgroundColor: emphasize(backgroundColor, 0.06),
-    },
-    "&:active": {
-      boxShadow: theme.shadows[1],
-      backgroundColor: emphasize(backgroundColor, 0.12),
-    },
-  };
-});
 
 function AddProduct() {
   const [selectedCategory, setSelectedCategory] = useState("Cosmetics");
@@ -33,11 +13,9 @@ function AddProduct() {
   const [productName, setProductName] = useState("");
   const [price, setPrice] = useState("");
   const [quantity, setQuantity] = useState(0);
-  // const [size, setSize] = useState(false);
-  // const [kSize, setKsize] = useState(false);
-  // const [sizes, setSizes] = useState([]);
-  const [Kidsizes, setKidsizes] = useState([]);
-  // const [category, setCategory] = useState('');
+
+ 
+  //for men and women
   const [isSchecked, setIsSChecked] = useState(false);
   const [isMchecked, setIsMChecked] = useState(false);
   const [isLchecked, setIsLChecked] = useState(false);
@@ -48,54 +26,98 @@ function AddProduct() {
   const [quantityL, setQuantityL] = useState(0);
   const [quantityXL, setQuantityXL] = useState(0);
   const [quantityXXL, setQuantityXXL] = useState(0 );
+//for kids
+  const [is1checked, setIs1Checked] = useState(false);
+  const [is2checked, setIs2Checked] = useState(false);
+  const [is3checked, setIs3Checked] = useState(false);
+  const [is4checked, setIs4Checked] = useState(false);
+  const [quantity1, setQuantity1] = useState(0);
+  const [quantity2, setQuantity2] = useState(0);
+  const [quantity3, setQuantity3] = useState(0);
+  const [quantity4, setQuantity4] = useState(0);
+  
+  const [image, setImage] = useState(null);
 
   const handleCategoryChange = (e) => {
     setSelectedCategory(e.target.value);
   };
-  // const handleBrandChange = (e) => {
-  //   setSelectedBrand(e.target.value);
-  // };
+ 
   const handleDescriptionChange = (e) => {
     setDescription(e.target.value);
   };
+ 
+  const handleImageChange = (e) => {
+    const selectedFiles = e.target.files;
+    const newImages = [];
 
+    for (let i = 0; i < selectedFiles.length; i++) {
+      newImages.push(selectedFiles[i]);
+    }
+
+    setImage(newImages);
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("clicked");
-    const sizes=[{s:quantityS},{m:quantityM},{l:quantityL},{xl:quantityXL},{xxl:quantityXXL}]
-console.log(sizes)
+  console.log('clickeddd')
+     // Create a FormData object to send the image and name
+     const formData = new FormData();
+    // formData.append('image', image); 
+    for (let i = 0; i < image.length; i++) {
+      formData.append('image', image[i]);
+    }
+    formData.append('name', productName); 
+    formData.append('price', price); 
+    formData.append('quantity', quantity); 
+    formData.append('category', selectedCategory); 
+    formData.append('description', description); 
+
     try {
+      const token = localStorage.getItem('token');
+
+      if (token) {
+        // Decode the token to get user details
+        const decodedToken = jwt_decode(token);
+        console.log(decodedToken.userId)
+        formData.append('sellerId', decodedToken.userId); 
+      
+      }
+      
       if(selectedCategory == "Mens" || selectedCategory == "Womens"){
-        const response = await axios.post("/Admin", {
-          name: productName,
-          price,
-          quantity,
-          category: selectedCategory,
-          size:true,
-          sizes,
-          description,
+
+
+        const size =true
+        formData.append('size', size); 
+        const sizes=[{s:quantityS},{m:quantityM},{l:quantityL},{xl:quantityXL},{xxl:quantityXXL}]
+        formData.append('sizes', JSON.stringify(sizes));
+       console.log(sizes)
+
+        const response = await axios.post("/Admin",formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         });
-        console.log(response.data);
+        console.log(response.data)
+       
       }else if (selectedCategory == "Kids"){
-        const response = await axios.post("/Admin", {
-          name: productName,
-          price,
-          quantity,
-          category: selectedCategory,
-          Kidsize:true,
-          Kidsizes,
-          description,
+
+        const Kidsizes=[{zeroToOne:quantity1},{oneToTwo:quantity2},{twoToThree:quantity3},{hreeToFour:quantity4}]
+        formData.append('Kidsizes', JSON.stringify(Kidsizes)); 
+        const Kidsize =true
+        formData.append('Kidsize', Kidsize); 
+        console.log(Kidsizes)
+        const response = await axios.post("/Admin",formData,  {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         });
         console.log(response.data);
       }else{
-        const response = await axios.post("/Admin", {
-          name: productName,
-          price,
-          quantity,
-          category: selectedCategory,
-          description,
+        const response = await axios.post("/Admin", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         });
-        console.log(response.data);
+        console.log(response.data)
 
       }
      
@@ -103,12 +125,10 @@ console.log(sizes)
       console.log(e);
     }
 
-    console.log(productName);
-    console.log(price, "", quantity);
-    console.log(selectedCategory);
-    console.log(description);
+    
   };
 
+  //for men and women
   const handleCheckboxChangeS = () => {
     console.log(isSchecked);
    
@@ -130,21 +150,31 @@ console.log(sizes)
     console.log(isXXLchecked);
     setIsXXLChecked(!isXXLchecked); // Toggle the checkbox state
   };
+//for kids
+const handleCheckboxChange1 = () => {
+ 
+  setIs1Checked(!is1checked); // Toggle the checkbox state
+};
+const handleCheckboxChange2 = () => {
+  
+  setIs2Checked(!is2checked); // Toggle the checkbox state
+};
+const handleCheckboxChange3 = () => {
+  
+  setIs3Checked(!is3checked); // Toggle the checkbox state
+};
+const handleCheckboxChange4 = () => {
+  
+  setIs4Checked(!is4checked); // Toggle the checkbox state
+};
+
+
 
   return (
     <div className="main">
+       <Header/>
       <div className="content-box">
-        <div className="header">
-          <Breadcrumbs aria-label="breadcrumb">
-            <StyledBreadcrumb
-              component="a"
-              href="#"
-              label="Home"
-              icon={<HomeIcon fontSize="small" />}
-            />
-          </Breadcrumbs>
-        </div>
-
+       
         <form action="" onSubmit={handleSubmit}>
           <div className="input-contents">
             <label for="username">Name: </label>
@@ -321,44 +351,86 @@ console.log(sizes)
               <div className="adultDressBox">
                 <label htmlFor="description">Size :</label>
                 <div className="subBox">
-                  <label htmlFor=""> 0 to 1 year </label>
-                  <input type="checkbox" name="" id="" />
-                  <label htmlFor="">Qty : </label>
+                  <label htmlFor=""> &nbsp;&nbsp;0 to 1 year </label>
+                  <input type="checkbox" name="" id="" checked={is1checked}
+                    onChange={handleCheckboxChange1}/>
+                    {is1checked ? (
+                    <>
+                       <label htmlFor="">Qty : </label>
                   <input
                     type="number"
                     style={{ width: "50px" }} // Add CSS style to make it smaller
+                    onChange={(e) => {
+                      setQuantity1(parseInt(e.target.value, 10));
+                    }}
                   />
+                    </>
+                  ) : (
+                    ""
+                  )}
+                 
                 </div>
                 <div className="subBox">
                   <label htmlFor="">
-                    &nbsp;&nbsp;&nbsp;&nbsp;1 to 2 years{" "}
+                    &nbsp;&nbsp;&nbsp;1 to 2 years{" "}
                   </label>
-                  <input type="checkbox" name="" id="" />
-                  <label htmlFor="">Qty : </label>
+                  <input type="checkbox" name="" id="" checked={is2checked}
+                    onChange={handleCheckboxChange2}/>
+                
+                  {is2checked ? (
+                    <>
+                       <label htmlFor="">Qty : </label>
                   <input
                     type="number"
                     style={{ width: "50px" }} // Add CSS style to make it smaller
+                    onChange={(e) => {
+                      setQuantity2(parseInt(e.target.value, 10));
+                    }}
                   />
+                    </>
+                  ) : (
+                    ""
+                  )}
                 </div>
                 <div className="subBox">
                   <label htmlFor="">&nbsp;&nbsp;&nbsp;2 to 3 years </label>
-                  <input type="checkbox" name="" id="" />
-                  <label htmlFor="">Qty : </label>
+                  <input type="checkbox" name="" id="" checked={is3checked}
+                    onChange={handleCheckboxChange3}/>
+                      {is3checked ? (
+                    <>
+                       <label htmlFor="">Qty : </label>
                   <input
                     type="number"
                     style={{ width: "50px" }} // Add CSS style to make it smaller
+                    onChange={(e) => {
+                      setQuantity3(parseInt(e.target.value, 10));
+                    }}
                   />
+                    </>
+                  ) : (
+                    ""
+                  )}
                 </div>
                 <div className="subBox">
                   <label htmlFor="">
                     &nbsp;&nbsp;&nbsp;&nbsp;3 to 4 years{" "}
                   </label>
-                  <input type="checkbox" name="" id="" />
-                  <label htmlFor="">Qty : </label>
+                  <input type="checkbox" name="" id="" checked={is4checked}
+                    onChange={handleCheckboxChange4}/>
+                      {is4checked ? (
+                    <>
+                       <label htmlFor="">Qty : </label>
                   <input
                     type="number"
                     style={{ width: "50px" }} // Add CSS style to make it smaller
+                    onChange={(e) => {
+                      setQuantity4(parseInt(e.target.value, 10));
+                    }}
                   />
+                    </>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
             ) : (
@@ -378,12 +450,17 @@ console.log(sizes)
                 padding: "4px",
               }}
             />
-            {/* <label htmlFor="category">Brand:</label>
-<select id="brand" name="brand" value={selectedBrand} onChange={handleBrandChange}>
-<option value="1">b 1</option>
-<option value="2">b 2</option>
-<option value="3">b 3</option>
-</select> */}
+           
+           <label htmlFor="image">Image:</label>
+        <input
+          type="file"
+          id="image"
+          name="image" 
+          accept="image/*"
+          multiple
+          onChange={handleImageChange}
+        />
+          
           </div>
           <button type="submit">click</button>
         </form>

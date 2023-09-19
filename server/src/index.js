@@ -23,7 +23,7 @@ app.use("/image", express.static(path.join(__dirname, "../Public")));
 
 app.use('/',AuthRouter)
 app.use('/Admin',AdminRouter)
-app.use('User',UserRouter)
+app.use('/User',UserRouter)
 
 app.listen(5000, () => {
   console.log("Server started on port 5000");

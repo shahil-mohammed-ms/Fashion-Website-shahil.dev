@@ -22,20 +22,7 @@ var upload = multer({
   storage: Storage,
 });
 
-// // Set up Multer to handle file uploads
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     // Define the destination folder for uploaded files
-//     cb(null, 'uploads/');
-//   },
-//   filename: function (req, file, cb) {
-//     // Define how the uploaded files should be named
-//     const fileExtension = path.extname(file.originalname);
-//     cb(null, Date.now() + fileExtension);
-//   },
-// });
 
-// const upload = multer({ storage: storage });
 
 router.post('/',upload.array('image', 5),async(req,res)=>{ 
   console.log(req.body.Kidsize)
@@ -51,7 +38,7 @@ if(req.body.size){
   const sizes = JSON.parse(req.body.sizes);
   console.log(req.body.sizes)
 const Product = new sellerProduct({
-  sellerId:"3",
+  sellerId:req.body.sellerId,
   name:req.body.name,
   price:req.body.price, 
   imageUrl:imageUrls,
@@ -75,7 +62,7 @@ console.log('size')
   console.log('kiddsso')
   const  Kidsizes = JSON.parse(req.body.Kidsizes ); 
   const Product = new sellerProduct({
-    sellerId:"1",
+    sellerId:req.body.sellerId,
     name:req.body.name,
     imageUrl:imageUrls,
     price:req.body.price, 
@@ -94,7 +81,7 @@ console.log('size')
 else{
 
   const Product = new sellerProduct({
-    sellerId:"555",
+    sellerId:req.body.sellerId,
     name:req.body.name,
     price:req.body.price,
     imageUrl:imageUrls,

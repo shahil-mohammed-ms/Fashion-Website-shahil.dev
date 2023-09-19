@@ -1,4 +1,6 @@
 import React,{useState} from 'react'
+import { Link, Outlet, useNavigate } from 'react-router-dom';
+
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
 import SearchIcon from '@mui/icons-material/Search';
@@ -66,6 +68,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 function Home() {
+  const navigate = useNavigate();
   
   //drawer
   const [state, setState] = useState({
@@ -104,7 +107,11 @@ function Home() {
      
     </Box>
   );
+ const handleClick=(category)=>{
+  console.log(category)
+  navigate(`/product?category=${category}`)
 
+  }
 
   return (
   <div className="home">
@@ -185,19 +192,19 @@ function Home() {
 <div className="men-box">
   <div className="a1"> <h3>SHOP</h3></div>
   <div className="a2"><p>Men's Fashion</p></div>
-  <div className="aicon"><ArrowForwardIcon fontSize="small"/></div>
+  <div className="aicon" onClick={() => handleClick('Mens')}><ArrowForwardIcon fontSize="small"/></div>
 
 </div>
 <div className="women-box">
 <div className="a1"> <h3>SHOP</h3></div>
   <div className="a2"><p>Women's Fashion</p></div>
-  <div className="aicon"><ArrowForwardIcon fontSize="small"/></div>
+  <div className="aicon" onClick={() => handleClick('Womens')}><ArrowForwardIcon fontSize="small"/></div>
 
 </div>
 <div className="kid-box">
 <div className="a1"> <h3>SHOP</h3></div>
   <div className="a2"><p>Kid's Fashion</p></div>
-  <div className="aicon"><ArrowForwardIcon fontSize="small"/></div>
+  <div className="aicon" onClick={() => handleClick('Kids')}><ArrowForwardIcon fontSize="small"/></div>
 </div>
 
 </div>
@@ -209,7 +216,7 @@ function Home() {
 <div className="shoe-box-content">
 <div className="a1"> <h3>SHOP</h3></div>
   <div className="a2"><p>Foot Wear</p></div>
-  <div className="aicon"><ArrowForwardIcon fontSize="small"/></div>
+  <div className="aicon" onClick={() => handleClick('Foot wear')}><ArrowForwardIcon fontSize="small"/></div>
 </div>
 
 
@@ -219,17 +226,17 @@ function Home() {
 <div className="cosmetics-box">
 <div className="a1"> <h3>SHOP</h3></div>
   <div className="a2"><p>Cosmetic's</p></div>
-  <div className="aicon"><ArrowForwardIcon fontSize="small"/></div>
+  <div className="aicon" onClick={() => handleClick('Cosmetics')}><ArrowForwardIcon fontSize="small" /></div>
 </div>
 <div className="grooming-box">
 <div className="a1"> <h3>SHOP</h3></div>
   <div className="a2"><p>Grooming</p></div>
-  <div className="aicon"><ArrowForwardIcon fontSize="small"/></div>
+  <div className="aicon" onClick={() => handleClick('Grooming')}><ArrowForwardIcon fontSize="small" /></div>
 </div>
 <div className="handbags-box">
 <div className="a1"> <h3>SHOP</h3></div>
   <div className="a2"><p>Hand Bag's</p></div>
-  <div className="aicon"><ArrowForwardIcon fontSize="small"/></div>
+  <div className="aicon" onClick={() => handleClick('Hand bag')}><ArrowForwardIcon fontSize="small"/></div>
 
 </div>
 
@@ -240,7 +247,7 @@ function Home() {
 <div className="watch-box-content">
 <div className="a1"> <h3>SHOP</h3></div>
   <div className="a2"><p>Watch</p></div>
-  <div className="aicon"><ArrowForwardIcon fontSize="small"/></div>
+  <div className="aicon" onClick={() => handleClick('Watch')}><ArrowForwardIcon fontSize="small"/></div>
 </div>
 
 

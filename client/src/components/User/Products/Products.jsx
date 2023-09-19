@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate,useLocation } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
@@ -6,12 +7,48 @@ import SortMenu from './SortMenu';
 import RatingMenu from './RatingMenu';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarRateIcon from '@mui/icons-material/StarRate';
+import axios from '../../../axios'
 import './Products.css';
 
 function Products() {
   // Price menu
   const [priceAnchorEl, setPriceAnchorEl] = useState(null);
+  // const [category,setCategory] = useState('')
   const priceOpen = Boolean(priceAnchorEl);
+  const location = useLocation();
+ 
+  // const GetCategory = queryParams.get('category');
+
+  // useEffect(() => {
+  //   // Move the setCategory call inside the useEffect
+  //   setCategory(queryParams.get('category'));
+  //   console.log(category);
+  // }, [location.search]); // Add location.search as a dependency
+  
+  
+
+const [products,setProducts] = useState([])
+  useEffect(() => {
+
+
+
+    const fetchData = async () =>{
+try{
+  const queryParams = new URLSearchParams(location.search);
+  const category =await queryParams.get('category')
+  // await  setCategory();
+  console.log(category)
+const response = await axios.get(`/User/getProducts/${category}`)
+console.log(response.data)
+setProducts(response.data)
+}catch(e){
+console.log(e)
+}
+      
+    }
+    fetchData()
+   
+  }, [])
 
   const handlePriceClick = (event) => {
     setPriceAnchorEl(event.currentTarget);
@@ -35,6 +72,7 @@ function Products() {
 
   // Radio group
   const [value, setValue] = useState('female');
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -48,7 +86,9 @@ function Products() {
 
         
         <div className="sideBar">
-          <h1>Fashion-Hub</h1>
+          <h1 onClick={()=>{
+            navigate('/UserHome')
+          }}>Fashion-Hub</h1>
           <div className='side-box a'>
             <Button
               id="price-button"
@@ -111,15 +151,15 @@ shahil mohammed
 
           </div>
           
-        {Array.from({ length: 10 }).map((_, index) => (
+        {products.map((product, index) => (
         <div key={index} className="product-boxes">
 <div className="product-img"></div>
 <div className="product-box-footer">
   <div className="product-footer-top">
-    <h3>Burmuda-nikkar</h3>
+    <h3>{product.name}</h3>
     <div className="star-icon"><StarBorderIcon/></div>
   </div>
-  <div className="rate-box"><p>RS : 1200</p></div>
+  <div className="rate-box"><p>RS : {product.price}</p></div>
 <div className="product-addcart">
   <Box>
     <Fab variant="extended" size="small">

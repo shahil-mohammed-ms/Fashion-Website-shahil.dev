@@ -1,10 +1,9 @@
 import React,{useState} from 'react'
-import axios from '../axios'
-import './Test.css'
+import axios from '../../../axios'
+import './Signin.css'
 import jwt_decode from 'jwt-decode';
 
-
-function TestEnv() {  
+function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
@@ -42,8 +41,6 @@ function TestEnv() {
       setError('Authentication failed. Please check your credentials.');
     }
   };
-  //email:seller1@gmail.com
-  //password:seller1@12345
   const handleGetUserId = async () => {
     const token = localStorage.getItem('token');
 
@@ -58,8 +55,8 @@ function TestEnv() {
 
    
   }; 
-
   return (
+    
     <>
    <h2>Login</h2>
       <form onSubmit={handleSubmit}>
@@ -92,4 +89,4 @@ function TestEnv() {
   )
 }
 
-export default TestEnv
+export default Login

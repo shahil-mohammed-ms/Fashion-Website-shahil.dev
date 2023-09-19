@@ -4,6 +4,7 @@ import Fab from '@mui/material/Fab';
 import AddCircleSharpIcon from '@mui/icons-material/AddCircleSharp';
 import NotificationsActiveRoundedIcon from '@mui/icons-material/NotificationsActiveRounded';
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
+import Header from '../Header';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import './AdminHome.css'
 
@@ -12,26 +13,9 @@ function AdminHome() {
   <>
   <div className="main-admin">
     <div className="admin-content">
+      <Header/>
 
-<div className="header-admin">
-  <div className="header-left">
-  <h1>Fashion-Hub Admin</h1>
-  </div>
-  
-  <div className="header-right">
-  <Box>
-              <Fab variant='extended'>
 
-              </Fab>
-            </Box>
-            <Box>
-              <Fab variant='extended'>
-shahil mohammed
-              </Fab>
-            </Box>
-  </div>
-
-</div>
 <div className="bottom-admin">
   <div className="top-carousel">
   <div className="carousel-box">
