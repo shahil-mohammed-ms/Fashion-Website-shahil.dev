@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useState, useEffect ,useMemo } from 'react';
+import { useNavigate,useLocation } from 'react-router-dom';
+import axios from '../../../axios'
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
@@ -11,33 +13,120 @@ import './SelectedProduct.css'
 import Slider from '@mui/material/Slider';
 
 
-function handleClick(event) {
-  event.preventDefault();
-  console.info('You clicked a breadcrumb.');
-}
 
-const valueToLabel = {
-  0: 's',
-  1: 'm',
-  2: 'l',
-  3: 'xl',
-  4: 'xxl',
-};
-
-const marks = [
-  { value: 0, label: 's' },
-  { value: 1, label: 'm' },
-  { value: 2, label: 'l' },
-  { value: 3, label: 'xl' },
-  { value: 4, label: 'xxl' },
-];
-
-function valuetext(value) {
-  console.log(valueToLabel[value])
-  return valueToLabel[value];
-}
 function SelectedProduct() {
+  const [marks, setMarks] = useState([]);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [product,setProduct] = useState('')
+  const [category,setCategory] = useState('')
+  const[valueToLabel,setValueToLabel] = useState({})
   
+  function handleClick(event) {
+    event.preventDefault();
+    console.info('You clicked a breadcrumb.');
+  }
+  
+
+
+  useEffect(()=>{
+ 
+ const fetchData = async ()=>{
+  const queryParams = new URLSearchParams(location.search);
+  const proId = queryParams.get('proId')
+ // const category = queryParams.get('category');
+ setCategory(queryParams.get('category'))   
+
+if(queryParams.get('category')==='Mens' || queryParams.get('category')==='Womens' ){
+
+  setMarks([
+    { value: 0, label: 's' },
+    { value: 1, label: 'm' },
+    { value: 2, label: 'l' },
+    { value: 3, label: 'xl' },
+    { value: 4, label: 'xxl' },
+  ]);
+  setValueToLabel( {
+    0: 's',
+    1: 'm',
+    2: 'l',
+    3: 'xl',
+    4: 'xxl',
+  })
+  // const valueToLabel =;
+}else if(queryParams.get('category')==='Kids'){
+  setMarks([
+    { value: 0, label: 'zeroToOne' },
+    { value: 1, label: 'oneToTwo' },
+    { value: 2, label: 'twoToThree' },
+    { value: 3, label: 'threeToFour' },
+    
+  ]);
+  setValueToLabel( {
+    0: 'zeroToOne',
+    1: 'oneToTwo',
+    2: 'twoToThree',
+    3: 'threeToFour',
+ 
+  })
+
+}else{
+
+  setMarks([])
+}
+
+
+
+try{
+const response = await axios.get(`/User/selectedProduct/${proId}`)
+setProduct(response.data[0])
+// console.log(response.data[0].size.sizes)
+
+}catch(e){
+  console.log(e)
+}
+
+ }
+ fetchData()
+ 
+  }, [location.search])
+
+
+
+  // for add cart increament and decreament
+ const [count, setCount] = useState(0);
+
+  const increment = () => {
+
+    
+    setCount(count + 1);
+  };
+
+  const decrement = () => {
+    if (count > 0) {
+      setCount(count - 1);
+    }
+  };
+
+  const debounce = (func, delay) => {
+    let timer;
+    return (...args) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        func(...args);
+      }, delay);
+    };
+  };
+  
+  const valuetext = useMemo(() => {
+    return debounce((value) => {
+      console.log(valueToLabel[value]);
+    }, 300); // Adjust the delay as needed
+  }, [valueToLabel]);
+  
+
+
+
 
   return (
     <div className="selectedProduct-main">
@@ -59,17 +148,19 @@ function SelectedProduct() {
    
   </div>
 <div className="p-contnt-price">
-  <h3>Rs: 1200</h3>
+
+<h3>Rs: {product.price}</h3>
+
 </div>
 <div className="p-quantity">
 <Box sx={{ '& > :not(style)': { m: 1 } }}>
-<Fab size="small" color="secondary" aria-label="add">
-<RemoveIcon/>
+<Fab size="small" color="secondary" aria-label="add" onClick={decrement}>
+<RemoveIcon />
       </Fab>
       <Fab size="medium" color="secondary" aria-label="add">
-        1
+      <h2>{count}</h2> 
       </Fab>
-      <Fab size="small" color="secondary" aria-label="add">
+      <Fab size="small" color="secondary" aria-label="add" onClick={increment}>
       <AddIcon />
       </Fab>
 </Box>
@@ -79,7 +170,7 @@ function SelectedProduct() {
   <div className="sizecomponent">
 
  
-    <Box sx={{ width: 300 }}>
+    <Box sx={{ width: 400 }}>
       <Slider
         aria-label="Size"
         defaultValue={0}
@@ -88,7 +179,7 @@ function SelectedProduct() {
         step={null}
         marks={marks}
         min={0}
-        max={4}
+        max={marks.length-1}
       />
     </Box>
 

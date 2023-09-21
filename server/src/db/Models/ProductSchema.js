@@ -47,25 +47,33 @@ size:{
     type:Boolean,
     default:false
   },
-  sizes:[
-    {s:{type:Number,default:0 }},
-    {m:{type:Number,default:0}},
-   { l:{type:Number,default:0}},
-    {xl:{type:Number,default:0}},
-   { xxl:{type:Number,default:0}}
-  ]
+  // sizes:[
+  //   {s:{type:Number,default:0 }},
+  //   {m:{type:Number,default:0}},
+  //  { l:{type:Number,default:0}},
+  //   {xl:{type:Number,default:0}},
+  //  { xxl:{type:Number,default:0}}
+  // ]  
+  //  sizes: {
+    sizes: {
+      s: { type: Number, default: 0 },
+      m: { type: Number, default: 0 },
+      l: { type: Number, default: 0 },
+      xl: { type: Number, default: 0 },
+      xxl: { type: Number, default: 0 },
+    },
 },
 Kidsize:{
   isSize:{
     type:Boolean,
     default:false
   },
-  Kidsizes:[
-    {zeroToOne:{type:Number,default:0 }},
-    {oneToTwo:{type:Number,default:0}},
-   { twoToThree:{type:Number,default:0}},
-    {threeToFour:{type:Number,default:0}},
-  ]
+  Kidsizes:{
+    zeroToOne:{type:Number,default:0 },
+    oneToTwo:{type:Number,default:0},
+    twoToThree:{type:Number,default:0},
+    threeToFour:{type:Number,default:0},
+}
 },
 review:[
  { id:{

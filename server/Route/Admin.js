@@ -25,19 +25,17 @@ var upload = multer({
 
 
 router.post('/',upload.array('image', 5),async(req,res)=>{ 
-  console.log(req.body.Kidsize)
-  console.log('kiddsso') 
 
-console.log(req.files)
 
 try{
   const imageUrls = req.files.map((file) => {
     return  file.filename; // Assuming the files are stored in the 'uploads' folder
   });
 if(req.body.size){
-  const sizes = JSON.parse(req.body.sizes);
+
+  const sizes =await JSON.parse(req.body.sizes);
   console.log(req.body.sizes)
-const Product = new sellerProduct({
+const Product =await new sellerProduct({
   sellerId:req.body.sellerId,
   name:req.body.name,
   price:req.body.price, 
@@ -47,20 +45,22 @@ const Product = new sellerProduct({
   description:req.body.description,
   size:{
     isSize:true,
-    sizes
+    sizes:sizes
   }
   
 
 })
+
 await Product.save()
 console.log('size')
+console.log(Product.size.sizes)
   res.json(req.body)
 
 
 }else if(req.body.Kidsize){
   console.log(req.body.Kidsizes)
-  console.log('kiddsso')
-  const  Kidsizes = JSON.parse(req.body.Kidsizes ); 
+ 
+  const  Kidsizes =await JSON.parse(req.body.Kidsizes ); 
   const Product = new sellerProduct({
     sellerId:req.body.sellerId,
     name:req.body.name,
@@ -71,12 +71,15 @@ console.log('size')
     description:req.body.description,
     Kidsize:{
       isSize:true,
-      Kidsizes
+      Kidsizes:Kidsizes
     }
     
   
   })
   await Product.save()
+  console.log('kiddss')
+  res.json(req.body) 
+  
 }
 else{
 

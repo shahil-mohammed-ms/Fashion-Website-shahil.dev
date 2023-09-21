@@ -87,7 +87,16 @@ function AddProduct() {
 
         const size =true
         formData.append('size', size); 
-        const sizes=[{s:quantityS},{m:quantityM},{l:quantityL},{xl:quantityXL},{xxl:quantityXXL}]
+       // const sizes=[{s:quantityS},{m:quantityM},{l:quantityL},{xl:quantityXL},{xxl:quantityXXL}]
+       const sizes = {
+        s: quantityS,
+        m: quantityM,
+        l: quantityL,
+        xl: quantityXL,
+        xxl: quantityXXL,
+      };
+      
+        
         formData.append('sizes', JSON.stringify(sizes));
        console.log(sizes)
 
@@ -100,7 +109,13 @@ function AddProduct() {
        
       }else if (selectedCategory == "Kids"){
 
-        const Kidsizes=[{zeroToOne:quantity1},{oneToTwo:quantity2},{twoToThree:quantity3},{hreeToFour:quantity4}]
+        const Kidsizes = {
+          zeroToOne: quantity1,
+          oneToTwo: quantity2,
+          twoToThree: quantity3,
+          threeToFour: quantity4,
+        };
+        
         formData.append('Kidsizes', JSON.stringify(Kidsizes)); 
         const Kidsize =true
         formData.append('Kidsize', Kidsize); 

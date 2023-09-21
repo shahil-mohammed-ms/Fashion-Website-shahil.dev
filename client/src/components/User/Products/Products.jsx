@@ -13,18 +13,9 @@ import './Products.css';
 function Products() {
   // Price menu
   const [priceAnchorEl, setPriceAnchorEl] = useState(null);
-  // const [category,setCategory] = useState('')
+  const [category,setCategory] = useState('')
   const priceOpen = Boolean(priceAnchorEl);
   const location = useLocation();
- 
-  // const GetCategory = queryParams.get('category');
-
-  // useEffect(() => {
-  //   // Move the setCategory call inside the useEffect
-  //   setCategory(queryParams.get('category'));
-  //   console.log(category);
-  // }, [location.search]); // Add location.search as a dependency
-  
   
 
 const [products,setProducts] = useState([])
@@ -35,10 +26,10 @@ const [products,setProducts] = useState([])
     const fetchData = async () =>{
 try{
   const queryParams = new URLSearchParams(location.search);
-  const category =await queryParams.get('category')
-  // await  setCategory();
-  console.log(category)
-const response = await axios.get(`/User/getProducts/${category}`)
+  // const category =await
+  setCategory(queryParams.get('category'))  
+  
+const response = await axios.get(`/User/getProducts/${queryParams.get('category')}`)
 console.log(response.data)
 setProducts(response.data)
 }catch(e){
@@ -78,6 +69,13 @@ console.log(e)
     setValue(event.target.value);
     console.log(event.target.value);
   };
+
+  //in clicking product
+  const onClickProduct = (id) =>{
+console.log(id)
+navigate(`/selectedProduct?proId=${id}&category=${category}`)
+
+  }
 
   return (
     <div className="product-main">
@@ -152,8 +150,11 @@ shahil mohammed
           </div>
           
         {products.map((product, index) => (
-        <div key={index} className="product-boxes">
-<div className="product-img"></div>
+        <div key={index} className="product-boxes" onClick={() => onClickProduct(product._id)}  >
+<div className="product-img" style={{
+        backgroundImage: `url(http://localhost:5000/image/images/product/${product.imageUrl[0]})`,
+      }}></div>
+
 <div className="product-box-footer">
   <div className="product-footer-top">
     <h3>{product.name}</h3>
