@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate} from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
 import AddCircleSharpIcon from '@mui/icons-material/AddCircleSharp';
@@ -9,6 +10,7 @@ import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import './AdminHome.css'
 
 function AdminHome() {
+  const navigate = useNavigate();
   return (
   <>
   <div className="main-admin">
@@ -22,7 +24,7 @@ function AdminHome() {
 <h1>Item's</h1>
 <ArrowForwardIosSharpIcon className="custom-large-icon"/>
 </div>
-<div className="carousel-box">
+<div className="carousel-box" onClick={()=>{navigate('/adminAddProduct')}}>
 <h1>Add</h1>
 <AddCircleSharpIcon className="custom-large-icon"/>
 

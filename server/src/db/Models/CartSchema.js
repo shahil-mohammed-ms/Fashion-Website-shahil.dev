@@ -12,6 +12,18 @@ quantity:{
   type:Number,
   
 },
+price:{
+  type:Number
+},
+totalPrice:{ 
+type:Number
+},
+sizeType:{
+  type:String
+},
+sizeTypeQuantity:{
+type:Number
+},
 createdAt: { type: Date, default: Date.now }
 
 })

@@ -10,7 +10,7 @@ const auth = require('../src/Middleware/SellerAuthentication')
 
 router.get('/',auth,(req,res)=>{
 
-  res.send('demo')
+  res.send('demo') 
 })
 // Your JWT secret key (should match the one used for signing the token)
 
@@ -18,7 +18,7 @@ router.get('/',auth,(req,res)=>{
 // Define an Express.js route handler
 router.get('/getId',auth, (req, res) => {
 
-    res.json({ message: 'succcess' });
+    res.json({ message: 'succcess' }); 
   
 });
 

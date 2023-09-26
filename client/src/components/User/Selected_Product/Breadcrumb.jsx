@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { emphasize, styled } from '@mui/material/styles';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Chip from '@mui/material/Chip';
@@ -24,18 +25,20 @@ const StyledBreadcrumb = styled(Chip)(({ theme }) => {
   };
 });
 
-function Breadcrumb({ handleClick }) {
- 
+function Breadcrumb({ handleClick,type }) {
+  const navigate = useNavigate();
+ //onClick={handleClick}
   return (
-    <div role="presentation" onClick={handleClick}>
+    <div role="presentation" >
       <Breadcrumbs aria-label="breadcrumb">
         <StyledBreadcrumb
           component="a"
           href="#"
           label="Home"
-          icon={<HomeIcon fontSize="small" />}
+          icon={<HomeIcon fontSize="small" />}  
+          onClick={()=>{navigate('/UserHome')}}
         />
-        <StyledBreadcrumb component="a" href="#" label="Catalog" />
+        <StyledBreadcrumb component="a" href="#" label="product's" onClick={()=>{navigate(`/product?category=${type}`)}} />
       </Breadcrumbs>
     </div>
   );

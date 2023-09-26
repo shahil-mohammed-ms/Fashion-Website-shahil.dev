@@ -11,6 +11,7 @@ import AdminSignin from "./pages/Admin/AdminSignin";
 import AdminProductListPage from "./pages/Admin/AdminProductListPage";
 import UserLoginPage from "./pages/User/UserLoginPage";
 import UserSigninPage from "./pages/User/UserSigninPage";
+import CartPage from "./pages/User/CartPage";
 
 import './App.css'
 function App() {
@@ -57,6 +58,9 @@ function App() {
 </Routes>
 <Routes>
 <Route path="/Userlogin" element={<UserLoginPage/>}/>
+</Routes>
+<Routes>
+<Route path="/cart" element={<CartPage/>}/>
 </Routes>
 
 

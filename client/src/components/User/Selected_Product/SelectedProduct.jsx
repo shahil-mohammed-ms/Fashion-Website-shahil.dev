@@ -11,6 +11,7 @@ import StarBorderIcon from '@mui/icons-material/StarBorder';
 import Breadcrumb from './Breadcrumb';
 import './SelectedProduct.css'
 import Slider from '@mui/material/Slider';
+import jwt_decode from 'jwt-decode';
 
 
 
@@ -18,16 +19,33 @@ function SelectedProduct() {
   const [marks, setMarks] = useState([]);
   const location = useLocation();
   const navigate = useNavigate();
-  const [product,setProduct] = useState('')
-  const [category,setCategory] = useState('')
+ 
   const[valueToLabel,setValueToLabel] = useState({})
-  
+
+  //db details for cart
+  const [productSizename,setProductSizeName] = useState('')
+  const [product,setProduct] = useState({})
+  const [category,setCategory] = useState('')
+  const [userId,setUserId] = useState('')
+
+
   function handleClick(event) {
     event.preventDefault();
     console.info('You clicked a breadcrumb.');
   }
   
+useEffect(()=>{
+  const token = localStorage.getItem('Usertoken');
 
+  if (token) {
+    // Decode the token to get user details
+    const decodedToken = jwt_decode(token);
+    
+    setUserId(decodedToken.userId)
+  
+  }
+  
+},[])
 
   useEffect(()=>{
  
@@ -80,7 +98,7 @@ if(queryParams.get('category')==='Mens' || queryParams.get('category')==='Womens
 try{
 const response = await axios.get(`/User/selectedProduct/${proId}`)
 setProduct(response.data[0])
-// console.log(response.data[0].size.sizes)
+ console.log(response.data[0])
 
 }catch(e){
   console.log(e)
@@ -93,14 +111,27 @@ setProduct(response.data[0])
 
 
 
-  // for add cart increament and decreament
- const [count, setCount] = useState(0);
+  
+const [count, setCount] = useState(0);
 
-  const increment = () => {
+const increment = async () => {
 
-    
+
+  if ( count < product.Kidsize.Kidsizes[productSizename] || count < product.size.sizes[productSizename]) {
+
+ 
     setCount(count + 1);
-  };
+    
+   
+  }else if( ! product.Kidsize.isSize && !product.size.isSize){
+    // 
+    if(count < product.quantity){
+    setCount(count +1)}
+
+  }
+
+};
+
 
   const decrement = () => {
     if (count > 0) {
@@ -108,23 +139,43 @@ setProduct(response.data[0])
     }
   };
 
-  const debounce = (func, delay) => {
-    let timer;
-    return (...args) => {
-      clearTimeout(timer);
-      timer = setTimeout(() => {
-        func(...args);
-      }, delay);
-    };
-  };
   
-  const valuetext = useMemo(() => {
-    return debounce((value) => {
-      console.log(valueToLabel[value]);
-    }, 300); // Adjust the delay as needed
-  }, [valueToLabel]);
   
+const valuetext = (value) =>{
+  
+  setProductSizeName(valueToLabel[value])
+  
+}
+const handleChange = (event, newValue) => {
+  // Reset count to 0 whenever the slider value changes
+  setCount(0);
+};
 
+// add to cart 
+
+ const AddCart =async () =>{
+
+try{
+
+const response = await axios.post('/Cart/addCart',{
+
+  productId:product._id,
+  buyerId:userId,
+  quantity:count,
+  price:product.price,
+  sizeType:productSizename,
+  sizeTypeQuantity:count,
+
+  
+})
+console.log(response.data)
+
+}catch(e){
+
+  console.log(e)
+}
+
+ }
 
 
 
@@ -132,7 +183,7 @@ setProduct(response.data[0])
     <div className="selectedProduct-main">
 
 <div className="s-product-Top">
-<Breadcrumb handleClick={handleClick}/>
+<Breadcrumb handleClick={handleClick} type={category}/>
 
 </div>
 <div className="imgAndContent">
@@ -180,6 +231,7 @@ setProduct(response.data[0])
         marks={marks}
         min={0}
         max={marks.length-1}
+        onChange={handleChange}
       />
     </Box>
 
@@ -207,7 +259,7 @@ setProduct(response.data[0])
 )}
 
 
-  <div className="p-addtocart"><Box sx={{ '& > :not(style)': { m: 1 } }}>
+  <div className="p-addtocart"><Box sx={{ '& > :not(style)': { m: 1 } }} onClick={AddCart}>
 
 <Fab variant="extended">
         <ShoppingCartIcon sx={{ mr: 1 }} />

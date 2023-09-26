@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 const mongoose = require('mongoose');
 const ProductData = require('../src/db/Models/ProductSchema')
+const Cart = require('../src/db/Models/CartSchema')
 
 
 //get products router
@@ -42,14 +43,6 @@ router.get('/selectedProduct/:id',async(req,res)=>{
     
   
   })
-
-
-
-
-
-
-
-
 
 
 

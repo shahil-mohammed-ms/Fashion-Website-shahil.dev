@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate} from 'react-router-dom';
 import axios from "../../../axios";
 import jwt_decode from 'jwt-decode';
 
@@ -13,7 +14,7 @@ function AddProduct() {
   const [productName, setProductName] = useState("");
   const [price, setPrice] = useState("");
   const [quantity, setQuantity] = useState(0);
-
+  const navigate = useNavigate();
  
   //for men and women
   const [isSchecked, setIsSChecked] = useState(false);
@@ -135,7 +136,7 @@ function AddProduct() {
         console.log(response.data)
 
       }
-     
+      navigate('/adminHome')
     } catch (e) {
       console.log(e);
     }

@@ -1,4 +1,5 @@
 import React,{useState} from 'react'
+import { useNavigate} from 'react-router-dom';
 import axios from '../../../axios'
 import './index.css'
 
@@ -7,7 +8,7 @@ function UserSignin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
-
+  const navigate = useNavigate();
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -30,6 +31,7 @@ function UserSignin() {
         email,
         password,
       });
+      navigate('/Userlogin')
     
     } catch (error) {
       // Handle authentication errors (e.g., display error message)

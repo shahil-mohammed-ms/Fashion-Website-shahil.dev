@@ -1,4 +1,5 @@
 import React,{useState} from 'react'
+import { useNavigate} from 'react-router-dom';
 import axios from '../../../axios'
 import jwt_decode from 'jwt-decode';
 import './index.css'
@@ -8,6 +9,7 @@ function UserLogin() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const [userId, setUserId] = useState(null);
+  const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -36,6 +38,7 @@ function UserLogin() {
       // Reset the form fields
       setEmail('');
       setPassword('');
+      navigate('/UserHome')
     } catch (error) {
       // Handle authentication errors (e.g., display error message)
       setError('Authentication failed. Please check your credentials.');
