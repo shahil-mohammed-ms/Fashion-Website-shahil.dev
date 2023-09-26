@@ -14,67 +14,102 @@ import jwt_decode from 'jwt-decode';
 import './Cart.css'
 
 function Cart() {
-  const [count, setCount] = useState(0);
+  // const [count, setCount] = useState(null);
+  const [userId,setUserId] = useState(null)
+  const [products,setProducts]=useState([])
+  // const [productQuantities, setProductQuantities] = useState(products.map(() => 0));
+  const [productQuantities, setProductQuantities] = useState([]);
 
-  const increment = async () => {
+ 
 
-
-    // if ( count < product.Kidsize.Kidsizes[productSizename] || count < product.size.sizes[productSizename]) {
+  useEffect(()=>{
+const getData = async()=>{
+  const token = localStorage.getItem('Usertoken');
   
-   
-    //   setCount(count + 1);
-      
-     
-    // }else if( ! product.Kidsize.isSize && !product.size.isSize){
-    //   // 
-    //   if(count < product.quantity){
-    //   setCount(count +1)}
+  if (token) {
+    // Decode the token to get user details
+    const decodedToken = jwt_decode(token);
+    
+    setUserId(decodedToken.userId)
   
-    // }
+  }
+if(userId){
+  const response = await axios.get(`/Cart/getcartProducts/${userId}`)
+
+  setProducts(response.data)
+  // setProductQuantities(new Array(response.data.length).fill(0));
+  const initialQuantities = response.data.map((product) => product.quantity);
+  setProductQuantities(initialQuantities);
+  console.log(response.data)
+  
+
+}
+ 
+
+}
+getData()
+
+  },[userId])
+
+  const increment = async (index) => {
+
+    const updatedQuantities = [...productQuantities];
+    console.log(updatedQuantities[index])
+    updatedQuantities[index]++;
+    setProductQuantities(updatedQuantities);
+    
   
   };
   
   
-    const decrement = () => {
-      // if (count > 0) {
-      //   setCount(count - 1);
-      // }
+    const decrement = (index) => {
+      const updatedQuantities = [...productQuantities];
+      if (updatedQuantities[index] > 0) {
+        console.log(updatedQuantities[index])
+        updatedQuantities[index]--;
+        setProductQuantities(updatedQuantities);
+      }
     };
 
 
   return (
     <div>
-  <div className="selectedProduct-main">
+      {products.map((product,index)=>(
+
+<div className="selectedProduct-main" key={index}>
 
 
 <div className="imgAndContent">
 <div style={{paddingTop:'20px'}}>
-<div className="p-image"></div>
+<div className="p-image" style={{
+        backgroundImage: `url(http://localhost:5000/image/images/product/${product.productData.imageUrl[0]})`,
+      }}></div>
 </div>
 
 
 <div className="p-content">
   <div className="p-content-left">
   <div className="p-content-header">
-    <h1>Your's product</h1>
+    <h1>{product.name}</h1>
    
   </div>
 <div className="p-contnt-price">
-<p>Rs: </p>
+<p>Rs:{product.productData.price}</p>
 <p>Discount</p>
 <p>Coupon discount</p>
-<h3>Total: </h3>
+<h3>Total: {product.productData.price*product.quantity}</h3>
 
 </div>
 <div className="p-quantity">
 <Box sx={{ '& > :not(style)': { m: 1 } }}>
-<Fab size="small" color="secondary" aria-label="add" onClick={decrement}>
+<Fab size="small" color="secondary" aria-label="add" onClick={() => decrement(index)}>
 <RemoveIcon />
       </Fab>
       <Fab size="medium" color="secondary" aria-label="add">
-      <h2>{count}</h2> 
+      {/* <h2>{!count ? product.quantity:count}</h2>  */}
+      <h2>{productQuantities[index]}</h2> 
       </Fab>
-      <Fab size="small" color="secondary" aria-label="add" onClick={increment}>
+      <Fab size="small" color="secondary" aria-label="add"  onClick={() =>increment(index)}>
       <AddIcon />
       </Fab>
 </Box>
@@ -117,6 +152,10 @@ function Cart() {
 <hr></hr>
 
     </div>
+      ))
+
+      }
+  
   
     
     </div>
