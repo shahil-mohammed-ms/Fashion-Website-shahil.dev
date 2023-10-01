@@ -1,19 +1,40 @@
-.box-demo{
-  width: 300px;
+/* Add any global styles or resets here */
 
-  border: 2px solid black;
-padding: 10px;
-padding-top: 20px;
-gap: 10px;
-display: flex;
-flex-wrap: wrap;
-
+/* Header styles */
+.AppBar {
+  background-color: #3498db;
 }
 
-.boxes{
-width: 50px;
-flex-basis: calc(20% - 10px);
-height: 50px;
-background-color: #963030;
+/* Logo text styles */
+.MuiTypography-h6 {
+  flex-grow: 1;
+  font-size: 1.5rem;
+}
 
+/* Mobile menu styles */
+.mobile-menu.hidden {
+  display: none;
+}
+
+.mobile-menu.visible {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Menu icon (hamburger) styles */
+.MuiIconButton-root {
+  color: white;
+}
+
+/* Icon button styles */
+.MuiIconButton-root:hover {
+  background-color: transparent; /* Remove hover background color */
+}
+
+/* Icon styles */
+.MuiSvgIcon-root {
+  font-size: 2rem;
+  color: white;
 }

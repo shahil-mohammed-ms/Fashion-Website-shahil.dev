@@ -16,6 +16,16 @@ function PaymentType() {
   const[name,setName] = useState(null)
   const [size,setSize] = useState(null)
   const [sellerId,setSellerId] = useState(null)
+  const [paymentInfo, setPaymentInfo] = useState({
+    proId: null,
+    userId: null,
+    cartId: null,
+    quantity: null,
+    total: null,
+    name: null,
+    size: null,
+    sellerId: null,
+  });
   
 
   useEffect(() => {
@@ -31,15 +41,31 @@ function PaymentType() {
       setSize(queryParams.get('size'));
       setSellerId(queryParams.get('sellerId'));
 
+
+
     };
 
     fetchData(); // Call the fetchData function when the component mounts
   }, [location.search]);
+  useEffect(() => {
+    // Set the paymentInfo object based on the existing state variables
+    setPaymentInfo({
+      proId,
+      userId,
+      cartId,
+      quantity,
+      total,
+      name,
+      size,
+      sellerId,
+    });
+  }, [proId, userId, cartId, quantity, total, name, size, sellerId]);
 
 //cod payment
 const handleCodBuy = async()=>{
 
   const response = await axios.post('/Order/addorder',{
+    COD:'COD',
     proId,
     userId,
     cartId,
@@ -82,7 +108,7 @@ const handleCodBuy = async()=>{
       />
       Online
     </label>
-    {selectedOption === 'online' ? (<OnlinePayment/>):(<button onClick={handleCodBuy}>Buy COD</button>)}
+    {selectedOption === 'online' ? (<OnlinePayment paymentInfo={paymentInfo} />):(<button onClick={handleCodBuy}>Buy COD</button>)}
   </div>
   )
 }
