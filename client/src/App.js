@@ -12,6 +12,7 @@ import AdminProductListPage from "./pages/Admin/AdminProductListPage";
 import UserLoginPage from "./pages/User/UserLoginPage";
 import UserSigninPage from "./pages/User/UserSigninPage";
 import CartPage from "./pages/User/CartPage";
+import PaymentPage from "./pages/User/PaymentPage";
 
 import './App.css'
 function App() {
@@ -62,7 +63,9 @@ function App() {
 <Routes>
 <Route path="/cart" element={<CartPage/>}/>
 </Routes>
-
+<Routes>
+<Route path="/payment" element={<PaymentPage/>}/>
+</Routes>
 
   </Router>
     </div>

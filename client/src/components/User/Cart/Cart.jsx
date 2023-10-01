@@ -19,8 +19,15 @@ function Cart() {
   const [products,setProducts]=useState([])
   // const [productQuantities, setProductQuantities] = useState(products.map(() => 0));
   const [productQuantities, setProductQuantities] = useState([]);
-
+  const navigate = useNavigate();
+  const location = useLocation();
  
+// const handleBuy = ()=>{
+
+// navigate(`/payment?userId=${userId}&cartId=${products.cartId}`)
+
+// }
+
 
   useEffect(()=>{
 const getData = async()=>{
@@ -51,25 +58,47 @@ getData()
 
   },[userId])
 
-  const increment = async (index) => {
-
+  const increment = async (index,sizeType,category,proId,cartId) => {
+console.log("first"+productQuantities[index])
     const updatedQuantities = [...productQuantities];
     console.log(updatedQuantities[index])
-    updatedQuantities[index]++;
-    setProductQuantities(updatedQuantities);
-    
+var passCount =updatedQuantities[index]
+const response = await axios.get(`/Cart/cartUpdate/${passCount+1}/${1}/${userId}/${sizeType}/${category}/${proId}/${cartId}`)
+console.log(response.data.reply)
+
+if(response.data.reply){
+  updatedQuantities[index]++;
+  console.log(updatedQuantities[index])
+
+  setProductQuantities(updatedQuantities);
+}
+   
   
   };
   
   
-    const decrement = (index) => {
+    const decrement =async (index,sizeType,category,proId,cartId) => {
+
+
       const updatedQuantities = [...productQuantities];
-      if (updatedQuantities[index] > 0) {
-        console.log(updatedQuantities[index])
-        updatedQuantities[index]--;
-        setProductQuantities(updatedQuantities);
-      }
+      var passCount =updatedQuantities[index]
+if(passCount>+1){
+  const response = await axios.get(`/Cart/cartUpdate/${passCount-1}/${-1}/${userId}/${sizeType}/${category}/${proId}/${cartId}`)
+
+  console.log(response.data.reply)
+  if(response.data.reply){
+
+  if (updatedQuantities[index] > 0) {
+    console.log(updatedQuantities[index])
+    updatedQuantities[index]--;
+    setProductQuantities(updatedQuantities);
+  }
+}
+}
+     
     };
+  
+    
 
 
   return (
@@ -102,14 +131,14 @@ getData()
 </div>
 <div className="p-quantity">
 <Box sx={{ '& > :not(style)': { m: 1 } }}>
-<Fab size="small" color="secondary" aria-label="add" onClick={() => decrement(index)}>
+<Fab size="small" color="secondary" aria-label="add" onClick={() => decrement(index,product.sizeType,product.productData.category,product.productData._id,product.cartId)}>
 <RemoveIcon />
       </Fab>
       <Fab size="medium" color="secondary" aria-label="add">
       {/* <h2>{!count ? product.quantity:count}</h2>  */}
       <h2>{productQuantities[index]}</h2> 
       </Fab>
-      <Fab size="small" color="secondary" aria-label="add"  onClick={() =>increment(index)}>
+      <Fab size="small" color="secondary" aria-label="add"  onClick={() =>increment(index,product.sizeType,product.productData.category,product.productData._id,product.cartId)}>
       <AddIcon />
       </Fab>
 </Box>
@@ -119,7 +148,10 @@ getData()
 
 
 
-  <div className="p-addtocart"><Box sx={{ '& > :not(style)': { m: 1 } }}>
+  <div className="p-addtocart"><Box sx={{ '& > :not(style)': { m: 1 } }} onClick={()=>{
+    navigate(`/payment?userId=${userId}&cartId=${product.cartId}&proId=${product.productData._id}&quantity=${product.quantity}
+    &name=${product.name}&total=${product.totalPrice}&size=${product.sizeType}&sellerId=${product.productData.sellerId}`)
+  }}>
 
 <Fab variant="extended">
         <ShoppingCartIcon sx={{ mr: 1 }} />

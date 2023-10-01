@@ -16,12 +16,11 @@ function Products() {
   const [category,setCategory] = useState('')
   const priceOpen = Boolean(priceAnchorEl);
   const location = useLocation();
-  
-
+  const navigate = useNavigate();
 const [products,setProducts] = useState([])
+
+
   useEffect(() => {
-
-
 
     const fetchData = async () =>{
 try{
@@ -63,7 +62,7 @@ console.log(e)
 
   // Radio group
   const [value, setValue] = useState('female');
-  const navigate = useNavigate();
+  
 
   const handleChange = (event) => {
     setValue(event.target.value);

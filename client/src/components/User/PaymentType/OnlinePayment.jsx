@@ -1,8 +1,9 @@
 import React from 'react';
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
-import axios from '../axios';
 
-function TestOne() {
+
+function OnlinePayment() {
+
   const paypalOptions = {
     'client-id': 'Af383g8lO77fcHhA_9I7jieqFTrBmhUoTj0-XUEiZ4LJUYG5xqoJQl-nvxdfnvGNRcqsiy-hkx8cx9E6',
   };
@@ -30,7 +31,7 @@ function TestOne() {
       }}
     />
   </PayPalScriptProvider>
-  );
+  )
 }
 
-export default TestOne;
+export default OnlinePayment

@@ -40,7 +40,7 @@ useEffect(()=>{
   if (token) {
     // Decode the token to get user details
     const decodedToken = jwt_decode(token);
-    
+    console.log(decodedToken.userId)
     setUserId(decodedToken.userId)
   
   }

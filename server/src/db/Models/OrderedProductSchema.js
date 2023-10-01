@@ -10,14 +10,19 @@ const orderedProductSchema = mongoose.Schema({
   sellerId:{
     type:mongoose.Schema.Types.ObjectId
   },
-  address:{
+  name:{
+    type:String
+  },address:{
+    type:String
+  },
+  size:{
     type:String
   },
   COD:{
     type:Boolean,
-    default:false
+    default:true
   },
-  price:{
+  Totalprice:{
     type:Number
   },
   quantity:{
