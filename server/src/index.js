@@ -15,7 +15,7 @@ app.use(
 
 app.use(bodyParser.json());
 
-const AuthRouter = require('../Route/Auth')
+const AuthRouter = require('../Route/Auth') 
 const AdminRouter = require('../Route/Admin')
 const UserRouter = require('../Route/User')
 const CartRouter = require('../Route/Cart')

@@ -1,40 +1,38 @@
-/* Add any global styles or resets here */
-
-/* Header styles */
-.AppBar {
-  background-color: #3498db;
+.mainbox{
+display: flex;
+height: 100vh;
+flex-wrap:wrap;
+/* gap: 10px; */
+justify-content: space-between;
 }
 
-/* Logo text styles */
-.MuiTypography-h6 {
-  flex-grow: 1;
-  font-size: 1.5rem;
+.box{
+ margin-left: 10px;
+flex: 1;
+
+height: 300px;
+/* width: 100px; */
+background-color: brown;
 }
 
-/* Mobile menu styles */
-.mobile-menu.hidden {
+@media(max-width:768px){
+
+  .mainbox{
+   display: flex;
+  
+   
+   
+   gap: 10px;
+  }
+
+.box{
+
+ width: 200px;
+  height: 600px;
+  background-color: brown;
+
+}
+/* .box:nth-child(n+3) {
   display: none;
-}
-
-.mobile-menu.visible {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-
-/* Menu icon (hamburger) styles */
-.MuiIconButton-root {
-  color: white;
-}
-
-/* Icon button styles */
-.MuiIconButton-root:hover {
-  background-color: transparent; /* Remove hover background color */
-}
-
-/* Icon styles */
-.MuiSvgIcon-root {
-  font-size: 2rem;
-  color: white;
+} */
 }

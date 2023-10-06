@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate,useLocation } from 'react-router-dom';
+import { useNavigate,useLocation, Navigate } from 'react-router-dom';
 import OnlinePayment from './OnlinePayment';
 import { Button } from '@mui/material';
 import axios from '../../../axios'
 
 function PaymentType() {
-
+  const navigate = useNavigate();
  const location = useLocation();
   const [selectedOption, setSelectedOption] = useState('cod');
   const[proId,setProId] = useState(null)
@@ -76,8 +76,13 @@ const handleCodBuy = async()=>{
     sellerId
 
   })
+  if(response.data.success){
 
-
+    navigate('/UserHome')
+  }else{
+    navigate('/cart')
+  
+  }
 }
 
 

@@ -23,6 +23,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 // import DrawerFunction from '../../DrawerFunction';
 import './Home.css'
+import './HomeMobile.css'
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -139,7 +140,9 @@ function Home() {
     </div>
   </div>
 </div>
-<div className="headerMiddle"><div className="searchBox">  <Fab variant="extended">
+<div className="headerMiddle">
+  <div className="searchBox"> 
+   <Fab variant="extended">
       
       <Search>
           <SearchIconWrapper>

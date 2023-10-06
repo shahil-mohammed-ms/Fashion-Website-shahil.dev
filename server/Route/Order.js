@@ -21,9 +21,7 @@ const {
   name,
 } = req.body
 
-console.log(COD)
 const isCOD = COD.toString() === 'COD';  //sb-j5rmb27609535@business.example.com )/Y8rJ@l   
-console.log(isCOD)
 
 try{
  
@@ -60,8 +58,11 @@ try{
        )
 
 
+res.json({success:true})
+
 }catch(e){
   console.log(e)
+  res.json({success:false})
 }
 
 

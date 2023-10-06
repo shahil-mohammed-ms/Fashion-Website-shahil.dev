@@ -1,0 +1,268 @@
+@media (max-width: 767px) {
+  .home{
+    background-color:#FFFAF0;
+    flex-direction: column;
+    
+  }
+  .homeHeader{
+    /* flex-wrap: wrap; */
+  
+    display: flex;
+  height: 700px;
+  padding: 10px;
+  background-image: url('https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80');
+  background-size: cover;
+  background-position: center;
+    /* width: 393px; */
+  margin-bottom: 1em;
+  } 
+
+
+  .headerLeft{
+margin: 0;
+    flex: 0;
+  }
+  .leftBone {
+    
+  }
+  .headerMiddle{
+  margin-top: 0.5em;
+    flex: 1;
+  }
+  .headerRight{
+    margin-top: 0.5em;
+    flex: 0;
+  }
+  
+  .rightBox{
+    margin-left: 0px;
+    
+  }
+  .headRight-sub{
+    display: flex;
+    margin-left: 0;
+  }
+  .head-dress{
+    font-size: xx-large;
+    padding-left: 50px;
+    padding-top: 10px;
+  }
+
+
+
+  .Home-body{
+    display: flex;
+    /* flex-wrap: wrap; */
+    
+    flex-direction: column;
+  }
+  
+
+  .Home-dress{
+    display: flex;
+    flex-direction: column;
+    left: 0;
+    padding-top: 0px;
+    width: 100%;
+   padding: 0;
+   /* align-items: center; */
+   gap: 1em;
+    
+  }
+  .men-box{
+    height: 350px;
+    width: 100%;
+    background-color: #aa7575;
+    background-image: url('https://img.freepik.com/premium-photo/young-bearded-man-model-fashion-sitting-urban-step-wearing-casual-clothes_1139-1325.jpg?w=900');
+    background-size: cover;
+    color: white;
+    padding-top: 50px;
+    padding-left: 30px;
+    }
+    .women-box{
+      height: 350px;
+      width: 100%;
+      color: white;
+      padding-top: 50px;
+    padding-left: 30px;
+      background-image: url('https://images.unsplash.com/photo-1618244972963-dbee1a7edc95?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80');
+      background-size: cover;
+    }
+    .kid-box{
+      height: 350px;
+      width: 100%;
+      background-image: url('https://images.pexels.com/photos/1619815/pexels-photo-1619815.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+    background-size: cover;
+    color: white;
+    padding-top: 240px;
+    padding-left: 30px;
+    }
+   
+    
+
+    .home-shoes-1{
+      margin-top: 1em;
+      height: 100px;
+      background-color: #7d4a4a;
+      height: 350px;
+    width:100%;
+    background-image: url('https://images.unsplash.com/photo-1473010350295-2c82192ebd8e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+    background-size: cover;
+    background-position: center;
+    margin-left: 0;
+    position: relative;
+    color: white;
+  
+    
+    }
+    .shoe-box-content{
+    margin-left: 70px;
+    padding-top: 50px;
+    
+    }
+    
+     .aicon-left{
+    left: 4px;
+     position: absolute;
+     margin-top: 150px;
+     height: 50px;
+    width: 50px;
+    padding-top: 8px;
+    }
+    .aicon-right{
+      position: absolute;
+      right: 0;
+      margin-right: 4px;
+      margin-top: 150px;
+      height: 50px;
+    width: 50px;
+    padding-top: 8px;
+    
+    }
+    
+    
+    .cosmetics-grooming{
+      flex-wrap: wrap;
+    display: flex;
+    /* padding-top: 50px; */
+    
+    
+    }
+    .cosmetics-box{
+
+    height: 350px;
+    width: 100%;
+    background-image: url('https://images.unsplash.com/photo-1552046122-03184de85e08?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80');
+    background-size: cover;
+   
+    color: white;
+    padding-top: 20px;
+    padding-left: 10px;
+    margin-left: 0;
+    }
+    .grooming-box{
+    height: 350px;
+    width: 100%;
+    background-image: url('https://images.unsplash.com/photo-1553265331-3032aacd1a76?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80');
+    background-size: cover;
+    color: white;
+    padding-top: 20px;
+    padding-left: 10px;
+    }
+    
+    .handbags-box{
+      height: 350px;
+    width: 100%;
+    background-image: url('https://images.unsplash.com/photo-1596552639068-99bd471b579c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=435&q=80');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding-top: 250px;
+    padding-left: 250px;
+    }
+    
+    
+    
+    .home-watch-1{
+      margin-top: 1em;
+      background-color: #7d4a4a;
+      height: 350px;
+    width: 100%;
+    background-image: url('https://images.unsplash.com/photo-1511370235399-1802cae1d32f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2055&q=80');
+    background-size: cover;
+    background-position: center;
+   margin-left: 0;
+    position: relative;
+    color: white;
+    
+    }
+    .watch-box-content{
+    margin-left: 70px;
+    padding-top: 50px;
+    
+    }
+    
+
+
+}
+
+/* @media (min-width: 320px) and (max-width: 480px) {
+  .home{
+    width: 393px;
+
+  } */
+  
+/* .homeHeader{
+
+  
+  display: flex;
+height: 700px;
+padding: 10px;
+background-image: url('https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80');
+background-size: cover;
+background-position: center;
+  width: 393px;
+
+
+
+} */
+
+/* .Home-body{
+  width: 393px !;
+  flex-wrap: wrap;
+}
+.Home-dress{
+  display: flex;
+  
+ 
+  padding-top: 20px;
+}
+.men-box{
+  height: 350px;
+  width: 100px;
+  background-color: #aa7575;
+  background-image: url('https://img.freepik.com/premium-photo/young-bearded-man-model-fashion-sitting-urban-step-wearing-casual-clothes_1139-1325.jpg?w=900');
+  background-size: cover;
+  color: white;
+  padding-top: 50px;
+  padding-left: 30px;
+  }
+  .women-box{
+    height: 350px;
+    width: 100px;
+    color: white;
+    padding-top: 50px;
+  padding-left: 30px;
+    background-image: url('https://images.unsplash.com/photo-1618244972963-dbee1a7edc95?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80');
+    background-size: cover;
+  }
+  .kid-box{
+    height: 350px;
+    width: 100px;
+    background-image: url('https://images.pexels.com/photos/1619815/pexels-photo-1619815.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+  background-size: cover;
+  color: white;
+  padding-top: 240px;
+  padding-left: 30px;
+  }
+} */

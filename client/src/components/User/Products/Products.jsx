@@ -7,10 +7,59 @@ import SortMenu from './SortMenu';
 import RatingMenu from './RatingMenu';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarRateIcon from '@mui/icons-material/StarRate';
+
+import SearchIcon from '@mui/icons-material/Search';
+import { styled, alpha } from '@mui/material/styles';
+import InputBase from '@mui/material/InputBase';
+
 import axios from '../../../axios'
 import './Products.css';
+import './ProductMobile.css';
 
 function Products() {
+
+  const Search = styled('div')(({ theme }) => ({
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: alpha(theme.palette.common.white, 0.25),
+    },
+    marginLeft: 0,
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing(1),
+      width: 'auto',
+    },
+  }));
+  
+  const SearchIconWrapper = styled('div')(({ theme }) => ({
+    padding: theme.spacing(0, 2),
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  }));
+  
+  const StyledInputBase = styled(InputBase)(({ theme }) => ({
+    color: 'inherit',
+    '& .MuiInputBase-input': {
+      padding: theme.spacing(1, 1, 1, 0),
+      // vertical padding + font size from searchIcon
+      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+      transition: theme.transitions.create('width'),
+      width: '100%',
+      [theme.breakpoints.up('sm')]: {
+        width: '12ch',
+        '&:focus': {
+          width: '20ch',
+        },
+      },
+    },
+  }));
+
   // Price menu
   const [priceAnchorEl, setPriceAnchorEl] = useState(null);
   const [category,setCategory] = useState('')
@@ -78,14 +127,63 @@ navigate(`/selectedProduct?proId=${id}&category=${category}`)
 
   return (
     <div className="product-main">
+
+      <div className="header">
+<div className="brandlogo"><h2>fasion-store</h2></div>
+<div className="searchbar"><Fab variant="extended">
+      
+      <Search>
+          <SearchIconWrapper>
+          <SearchIcon/>
+          </SearchIconWrapper>
+          <StyledInputBase
+            placeholder="Search…"
+            inputProps={{ 'aria-label': 'search' }}
+          />
+        </Search>
+    </Fab></div>
+<div className="headIcons"> 
+<div className="headIcons-icon">
+  <Fab variant="extended">
+
+</Fab>
+  </div>
+
+  <div className="headIcons-icon">
+  <Fab variant="extended">
+
+</Fab>
+  </div>
+  <div className="headIcons-icon">
+  <Fab variant="extended">
+ 
+</Fab>
+  </div>
+  <div className="headIcons-icon">
+  <Fab variant="extended">
+
+</Fab></div>
+  </div>
+   
+<div className="profileDetails"> <Box>
+              <Fab variant='extended'>
+
+              </Fab>
+            </Box>
+           <div className="user-name"><p>Shahil mohammed</p></div>
+           </div>
+
+      </div>
       
       <div className="topContent">
 
         
-        <div className="sideBar">
-          <h1 onClick={()=>{
+        {/* <div className="sideBar">
+          <h1 className='firmName' onClick={()=>{
             navigate('/UserHome')
           }}>Fashion-Hub</h1>
+          <div className="sortrating">
+
           <div className='side-box a'>
             <Button
               id="price-button"
@@ -128,25 +226,15 @@ navigate(`/selectedProduct?proId=${id}&category=${category}`)
               handleChange={handleChange}
             />
           </div>
+          </div>
+        
         
 
 
-        </div>
+        </div> */}
         <div className="product-main-sub">
 
-          <div className="product-header">
-          <Box>
-              <Fab variant='extended'>
-
-              </Fab>
-            </Box>
-            <Box>
-              <Fab variant='extended'>
-shahil mohammed
-              </Fab>
-            </Box>
-
-          </div>
+        
           
         {products.map((product, index) => (
         <div key={index} className="product-boxes" onClick={() => onClickProduct(product._id)}  >

@@ -29,7 +29,15 @@ function OnlinePayment(props) {
     sellerId
 
   })
-  
+
+  if(response.data.success){
+
+    navigate('/UserHome')
+  }else{
+    navigate('/cart')
+    
+  }
+ 
 };
 
 // Function to handle transaction failures

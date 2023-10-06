@@ -52,8 +52,7 @@ const Product =await new sellerProduct({
 })
 
 await Product.save()
-console.log('size')
-console.log(Product.size.sizes)
+
   res.json(req.body)
 
 
