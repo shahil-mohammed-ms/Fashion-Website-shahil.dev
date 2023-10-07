@@ -13,23 +13,11 @@ function TestEnv() {
 
   return (
   <div className="main">
-    <div className="mainbox">
-
-    <div className="box">
-
-</div>
-<div className="box">
-  
-</div>
-<div className="box">
-  
-</div>
-<div className="box">
-  
-</div>
+   
+   <div className="searchbar">
+      <input type="text" className="search-input" placeholder="Search..." />
+      <button className="search-button">Search</button>
     </div>
-
-
   </div>
   )
 }

@@ -130,47 +130,48 @@ navigate(`/selectedProduct?proId=${id}&category=${category}`)
 
       <div className="header">
 <div className="brandlogo"><h2>fasion-store</h2></div>
-<div className="searchbar"><Fab variant="extended">
-      
-      <Search>
-          <SearchIconWrapper>
-          <SearchIcon/>
-          </SearchIconWrapper>
-          <StyledInputBase
-            placeholder="Search…"
-            inputProps={{ 'aria-label': 'search' }}
-          />
-        </Search>
-    </Fab></div>
+
+<div className="searchbar">
+      <input type="text" className="search-input" placeholder="Search..." />
+      <Fab variant="extended" className="smallFab searchbutton">
+<SearchIcon/>
+</Fab>
+    </div>
+
+
 <div className="headIcons"> 
+
 <div className="headIcons-icon">
-  <Fab variant="extended">
-
+  <Fab variant="extended" className="smallFab-mobile mob1">
+h
 </Fab>
   </div>
 
   <div className="headIcons-icon">
-  <Fab variant="extended">
+  <Fab variant="extended"className="smallFab">
 
 </Fab>
   </div>
   <div className="headIcons-icon">
-  <Fab variant="extended">
+  <Fab variant="extended"className="smallFab">
  
 </Fab>
   </div>
   <div className="headIcons-icon">
-  <Fab variant="extended">
+  <Fab variant="extended"className="smallFab">
 
 </Fab></div>
   </div>
    
 <div className="profileDetails"> <Box>
-              <Fab variant='extended'>
+              <Fab variant='extended'className="smallFab">
 
               </Fab>
+              <Fab variant='extended'className="smallFab-mobile">
+p
+              </Fab>
             </Box>
-           <div className="user-name"><p>Shahil mohammed</p></div>
+           <div className="user-name"><p>Shahil</p></div>
            </div>
 
       </div>
@@ -229,7 +230,18 @@ navigate(`/selectedProduct?proId=${id}&category=${category}`)
           </div>
         
         
-
+<Fab variant="extended" className='searchfab'>
+      
+      <Search>
+          <SearchIconWrapper>
+          <SearchIcon/>
+          </SearchIconWrapper>
+          <StyledInputBase
+            placeholder="Search…"
+            inputProps={{ 'aria-label': 'search' }}
+          />
+        </Search>
+    </Fab>
 
         </div> */}
         <div className="product-main-sub">

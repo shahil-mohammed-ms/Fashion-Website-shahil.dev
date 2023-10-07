@@ -1,38 +1,29 @@
-.mainbox{
-display: flex;
-height: 100vh;
-flex-wrap:wrap;
-/* gap: 10px; */
-justify-content: space-between;
+/* SearchBar.css */
+.searchbar {
+  display: flex;
+  justify-content: center;
+  flex: 4;
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 5px;
 }
 
-.box{
- margin-left: 10px;
-flex: 1;
-
-height: 300px;
-/* width: 100px; */
-background-color: brown;
+.search-input {
+  width: 100%;
+  border: none;
+  padding: 5px;
+  font-size: 16px;
 }
 
-@media(max-width:768px){
-
-  .mainbox{
-   display: flex;
-  
-   
-   
-   gap: 10px;
+/* Media query for screens with a max-width of 767px (Mobile) */
+@media (max-width: 767px) {
+  .searchbar {
+    flex-direction: column;
+    align-items: center;
   }
 
-.box{
-
- width: 200px;
-  height: 600px;
-  background-color: brown;
-
-}
-/* .box:nth-child(n+3) {
-  display: none;
-} */
+  .search-input {
+    width: 100%;
+    margin-bottom: 10px;
+  }
 }

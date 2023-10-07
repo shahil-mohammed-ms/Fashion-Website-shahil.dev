@@ -5,6 +5,65 @@
   
   }
 
+ /* In your external CSS file */
+ .smallFab {
+  display: none !important;
+}
+.smallFab-mobile{
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
+  border-radius: 50% !important;
+  display: block;
+}
+.mob1{
+display: flex;
+padding: 0 !important;
+width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
+  border-radius: 50% !important;
+  display: block !important;
+  
+}
+.headIcons{
+  flex: 1;
+  padding-left: 5%;
+  /* justify-content: flex-end !important; */
+}
+
+.brandlogo{
+  
+}
+.brandlogo h2{
+  font-size: small;
+}
+.user-name{
+  font-size: small;
+  
+  
+}
+.profileDetails{
+flex: 3 !important;
+justify-content: flex-start !important;
+/* align-items: baseline !important; */
+gap: 4px;
+
+}
+.searchbar {
+  flex-direction: column;
+  align-items: center;
+}
+.searchbutton{
+  display: contents !important;
+}
+.search-input {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
 
   .product-main{
 
