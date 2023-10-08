@@ -12,6 +12,7 @@ import StarBorderIcon from '@mui/icons-material/StarBorder';
 import Slider from '@mui/material/Slider';
 import jwt_decode from 'jwt-decode';
 import './Cart.css'
+import './Cart-Mobile.css'
 
 function Cart() {
   // const [count, setCount] = useState(null);
@@ -155,7 +156,7 @@ if(passCount>+1){
 
 <Fab variant="extended">
         <ShoppingCartIcon sx={{ mr: 1 }} />
-        Buy Item 
+        Buy
       </Fab>
 </Box>
 </div>

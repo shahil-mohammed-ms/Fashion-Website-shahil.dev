@@ -1,94 +1,107 @@
-import React,{useState} from 'react'
+
+import React, { useState } from 'react';
+import axios from '../../../axios';
 import { useNavigate} from 'react-router-dom';
-import axios from '../../../axios'
 import jwt_decode from 'jwt-decode';
-import './index.css'
+import './index.css';
 
 function UserLogin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(null);
-  const [userId, setUserId] = useState(null);
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
   const navigate = useNavigate();
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
+  const onButtonClick = async () => {
+    setEmailError('');
+    setPasswordError('');
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+    if (email === '') {
+      setEmailError('Please enter your email');
+      return;
+    }
+
+    if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
+      setEmailError('Please enter a valid email');
+      return;
+    }
+
+    if (password === '') {
+      setPasswordError('Please enter a password');
+      return;
+    }
+
+    if (password.length < 8) {
+      setPasswordError('The password must be 8 characters or longer');
+      return;
+    }
 
     try {
-      // Make a POST request to your server endpoint with the user's credentials
       const response = await axios.post('/UserLogin', {
         email,
         password,
       });
+
       const token = response.data.token;
-      // Store the token in local storage
       localStorage.setItem('Usertoken', token);
-      console.log(token)
-      // Handle the response here (e.g., store authentication token, redirect, etc.)
+      console.log(token);
       console.log('Login successful:', response.data);
 
-      // Reset the form fields
       setEmail('');
       setPassword('');
       navigate('/UserHome')
     } catch (error) {
       // Handle authentication errors (e.g., display error message)
-      setError('Authentication failed. Please check your credentials.');
+
+      console.error('Authentication failed:', error);
+      // Reload the current page
+// window.location.reload();
+
     }
   };
-  const handleGetUserId = async () => {
-    const token = localStorage.getItem('Usertoken');
 
-    if (token) {
-      // Decode the token to get user details
-      const decodedToken = jwt_decode(token);
-      console.log(decodedToken.userId)
-    
-    }
-    console.log(token)
-  
-
-   
-  }; 
   return (
-    <>
-   <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Email:</label>
-          <input
-            type="email"
-            placeholder="Enter your email"
-            value={email}
-            onChange={handleEmailChange}
-          />
-        </div>
-        <div>
-          <label>Password:</label>
-          <input
-            type="password"
-            placeholder="Enter your password"
-            value={password}
-            onChange={handlePasswordChange}
-          />
-        </div>
-        <button type="submit">Login</button>
-      </form>
-      <button onClick={handleGetUserId}>Get User ID</button>
-      
-      {/* Display user ID if available */}
-      {userId && <p>User ID: {userId}</p>}
-
-   </>
-  )
+    <div className="mainContainer">
+      <div className="titleContainer">
+        <h2>Login</h2>
+      </div>
+      <br />
+      <div className="inputContainer">
+        <input
+          value={email}
+          placeholder="Enter your email here"
+          onChange={(e) => setEmail(e.target.value)}
+          className="inputBox"
+          type="email"
+        />
+        <label className="errorLabel">{emailError}</label>
+      </div>
+      <br />
+      <div className="inputContainer">
+        <input
+          value={password}
+          placeholder="Enter your password here"
+          onChange={(e) => setPassword(e.target.value)}
+          className="inputBox"
+          type="password"
+        />
+        <label className="errorLabel">{passwordError}</label>
+      </div>
+      <br />
+      <div className="inputContainer">
+        <input
+          className="inputButton"
+          type="button"
+          onClick={onButtonClick}
+          value="Log in"
+        />
+      </div>
+    </div>
+  );
 }
 
-export default UserLogin
+export default UserLogin;
+
+
+
