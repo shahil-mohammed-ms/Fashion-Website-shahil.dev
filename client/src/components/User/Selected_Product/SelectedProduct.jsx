@@ -10,6 +10,7 @@ import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import Breadcrumb from './Breadcrumb';
 import './SelectedProduct.css'
+import './selectedMobile.css'
 import Slider from '@mui/material/Slider';
 import jwt_decode from 'jwt-decode';
 
@@ -186,6 +187,8 @@ console.log(response.data)
 <Breadcrumb handleClick={handleClick} type={category}/>
 
 </div>
+
+
 <div className="imgAndContent">
 <div style={{paddingTop:'20px'}}>
 <div className="p-image"></div>
@@ -217,11 +220,11 @@ console.log(response.data)
 </Box>
 </div>
 <div className="sizes">
-  <div className="size-header"><h2>size</h2></div>
+
   <div className="sizecomponent">
 
  
-    <Box sx={{ width: 400 }}>
+    <Box sx={{ width: 400 }} className='slidermob'>
       <Slider
         aria-label="Size"
         defaultValue={0}
@@ -243,7 +246,7 @@ console.log(response.data)
     <Box sx={{ '& > :not(style)': { m: 1 } }}>
       <Fab variant="extended">
         <StarBorderIcon sx={{ mr: 1 }} />
-        Wish list
+       <p className='wishbuymob'>Save</p>
       </Fab>
     </Box>
   </div>
@@ -252,7 +255,7 @@ console.log(response.data)
     <Box sx={{ '& > :not(style)': { m: 1 } }}>
       <Fab variant="extended">
         <StarIcon sx={{ mr: 1 }} />
-        Wish list
+        <p className='wishbuymob'>Save</p>
       </Fab>
     </Box>
   </div>
@@ -263,7 +266,7 @@ console.log(response.data)
 
 <Fab variant="extended">
         <ShoppingCartIcon sx={{ mr: 1 }} />
-        Add Item 
+        <p className='wishbuymob'>Cart </p>
       </Fab>
 </Box>
 </div>

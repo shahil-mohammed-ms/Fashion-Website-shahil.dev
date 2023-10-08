@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
 import SortMenu from './SortMenu';
 import RatingMenu from './RatingMenu';
+import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarRateIcon from '@mui/icons-material/StarRate';
 
@@ -257,20 +258,36 @@ p
 <div className="product-box-footer">
   <div className="product-footer-top">
     <h3>{product.name}</h3>
-    <div className="star-icon"><StarBorderIcon/></div>
+  
   </div>
   <div className="rate-box"><p>RS : {product.price}</p></div>
 <div className="product-addcart">
-  <Box>
-    <Fab variant="extended" size="small">
-      <p>Add to Cart</p>
-    </Fab>
-  </Box>
+{true ? (
+  <div className="p-addtowishlist">
+    <Box sx={{ '& > :not(style)': { m: 1 } }}>
+      <Fab variant="extended">
+        <StarBorderIcon sx={{ mr: 1 }} />
+        Wish list
+      </Fab>
+    </Box>
+  </div>
+) : (
+  <div className="p-addtowishlist"> 
+    <Box sx={{ '& > :not(style)': { m: 1 } }}>
+      <Fab variant="extended">
+        <StarIcon sx={{ mr: 1 }} />
+        Wish list
+      </Fab>
+    </Box>
+  </div>
+)}
 </div>
 
 </div>
+
 
         </div>
+        
       ))}
 
         </div>

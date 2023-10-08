@@ -141,14 +141,13 @@ justify-content: center;
   width: 300px;
   height: 400px;
   background-color: lightgray;
-  
   cursor: pointer;
   transition: transform 0.2s ease-in-out;
 }
 
-/* .product-boxes:hover {
-  transform: scale(0.95); 
-} */
+.product-box-footer{
+
+}
 
 .product-boxes:active {
   transform: scale(0.9); /* Further scale down on click */
