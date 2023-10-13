@@ -1,7 +1,8 @@
 var express = require("express");
 const multer = require("multer");
 var router = express.Router();
-
+const mongoose = require('mongoose');
+const Seller = require('../src/db/Models/SellerSchema')
 const sellerProduct = require('../src/db/Models/ProductSchema')
 
 var Storage = multer.diskStorage({
@@ -110,7 +111,27 @@ console.log('normal')
 
 
 
+router.post('/getSellerItemsList',async (req,res)=>{
 
+const {sellerId} = req.body
+const id =new mongoose.Types.ObjectId (sellerId)
+console.log(id)
+try{
+
+ const productList = await sellerProduct.find({sellerId:id})
+//  console.log(productList)
+
+ res.json(productList)
+}catch(e){
+
+
+}
+
+
+
+
+
+})
 
 
 

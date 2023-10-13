@@ -30,7 +30,7 @@ function Login() {
       });
       const token = response.data.token;
       // Store the token in local storage
-      localStorage.setItem('token', token);
+      localStorage.setItem('seller-token', token);
       console.log(token)
       // Handle the response here (e.g., store authentication token, redirect, etc.)
       console.log('Login successful:', response.data);
@@ -45,7 +45,7 @@ function Login() {
     }
   };
   const handleGetUserId = async () => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('seller-token');
 
     if (token) {
       // Decode the token to get user details

@@ -5,7 +5,7 @@ import jwt_decode from 'jwt-decode';
 
 import Header from "../Header";
 import "./AddProduct.css";
-
+import "./AddProduct-Mobile.css";
 
 function AddProduct() {
   const [selectedCategory, setSelectedCategory] = useState("Cosmetics");
@@ -188,12 +188,13 @@ const handleCheckboxChange4 = () => {
 
   return (
     <div className="main">
-       <Header/>
+     
       <div className="content-box">
        
         <form action="" onSubmit={handleSubmit}>
           <div className="input-contents">
-            <label for="username">Name: </label>
+<div className="left-input">
+<label for="username">Name: </label>
             <input
               type="text"
               id="name"
@@ -364,7 +365,7 @@ const handleCheckboxChange4 = () => {
                 </div>
               </div>
             ) : selectedCategory == "Kids" ? (
-              <div className="adultDressBox">
+              <div className="KidsDressBox">
                 <label htmlFor="description">Size :</label>
                 <div className="subBox">
                   <label htmlFor=""> &nbsp;&nbsp;0 to 1 year </label>
@@ -452,8 +453,9 @@ const handleCheckboxChange4 = () => {
             ) : (
               ""
             )}
-
-            <label htmlFor="description">Description:</label>
+</div>
+<div className="right-input">
+<label htmlFor="description">Description:</label>
             <textarea
               id="description"
               name="description"
@@ -476,9 +478,18 @@ const handleCheckboxChange4 = () => {
           multiple
           onChange={handleImageChange}
         />
+</div>
+
+          
+
+   
           
           </div>
-          <button type="submit">click</button>
+          <div className="buttonform">  <button className="realbutton" type="submit">
+  <span>Click</span>
+</button>
+</div>
+        
         </form>
       </div>
     </div>
