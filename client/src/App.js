@@ -13,6 +13,8 @@ import UserLoginPage from "./pages/User/UserLoginPage";
 import UserSigninPage from "./pages/User/UserSigninPage";
 import CartPage from "./pages/User/CartPage";
 import PaymentPage from "./pages/User/PaymentPage";
+import EditProductPage from "./pages/Admin/EditProductPage";
+import EditPage from "./pages/Admin/EditPage";
 
 
 import './App.css'
@@ -59,7 +61,7 @@ function App() {
 <Route path="/Usersignin" element={<UserSigninPage/>}/>
 </Routes>
 <Routes>
-<Route path="/Userlogin" element={<UserLoginPage/>}/>
+<Route path="/" element={<UserLoginPage/>}/>
 </Routes>
 <Routes>
 <Route path="/cart" element={<CartPage/>}/>
@@ -67,7 +69,12 @@ function App() {
 <Routes>
 <Route path="/payment" element={<PaymentPage/>}/>
 </Routes>
-
+<Routes>
+<Route path="/Editproduct" element={<EditProductPage/>}/>
+</Routes>
+<Routes>
+<Route path="/Edit" element={<EditPage/>}/>
+</Routes>
   </Router>
     </div>
   );

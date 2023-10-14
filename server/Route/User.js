@@ -29,8 +29,6 @@ router.get('/selectedProduct/:id',async(req,res)=>{
 
   const objectId =new mongoose.Types.ObjectId(req.params.id);
 
-  console.log(req.params.id)
-
   try{
   
     const Data =await ProductData.find({_id:objectId}).exec();
@@ -44,8 +42,7 @@ router.get('/selectedProduct/:id',async(req,res)=>{
   
   })
 
-
-
+  
 
 
 

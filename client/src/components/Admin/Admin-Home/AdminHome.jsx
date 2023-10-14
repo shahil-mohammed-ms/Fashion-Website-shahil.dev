@@ -55,7 +55,7 @@ function AdminHome() {
 <AddCircleSharpIcon className="custom-large-icon"/>
 
 </div>
-<div className="carousel-box">
+<div className="carousel-box" onClick={()=>{navigate('/Editproduct')}}>
 <h1>Edit</h1>
 <EditRoundedIcon className="custom-large-icon"/>
 </div>

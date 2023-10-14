@@ -134,9 +134,25 @@ try{
 })
 
 
+//update product
 
 
+router.post('/updateProduct',upload.array('image', 5),async(req,res)=>{
+console.log('data req.body')
+  console.log(req.body)
 
+  // try{ 
+  
+  //   const Data =await ProductData.findOneAndUpdate({}).exec();
+  //   console.log(Data)
+  //   res.json(Data)
+  // }catch(e){
+  //   console.log(e)
+  // }
+  
+    
+  
+  })
 
 
 

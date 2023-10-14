@@ -1,14 +1,13 @@
 import {React,useState,useEffect} from 'react'
-import { useNavigate} from 'react-router-dom';
+import { useNavigate,useLocation} from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import axios from '../../../axios'
-import Header from '../Header';
-import './ProductList.css'
+import './EditProduct.css'
 
-function ProductList() {
+function EditProduct() {
   const [productList,setProductList] = useState([])
   const navigate = useNavigate();
-
+  const location = useLocation();
 
   useEffect(() => {
    
@@ -33,7 +32,6 @@ function ProductList() {
    
   }, [])
  
-
   return (
     <>
     
@@ -43,14 +41,16 @@ function ProductList() {
             <th>Image</th>
             <th>Name</th>
             <th>Category</th>
-            <th>Quantity Left</th>
-            <th>Quantity Sold</th>
+            <th>Quantity </th>
             <th>Price</th>
+            <th>Edit</th>
+            <th>Discound</th>
+            <th>coupon</th>
           </tr>
         </thead>
         <tbody>
           {productList.map((product,index) => (
-            <tr key={product.id}>
+            <tr key={product._id}>
               <td>
               <img src={`http://localhost:5000/image/images/product/${product.imageUrl[0]}`}  alt={product.name} width="50" height="50" className='proImg' />
               {/* <img
@@ -69,8 +69,10 @@ function ProductList() {
               <td>{product.name}</td>
               <td>{product.category}</td>
               <td>{product.quantity}</td>
-              <td>{product.quantitySold}</td>
               <td>RS : {product.price.toFixed(2)}</td>
+              <td><button onClick={()=>{navigate(`/Edit?proId=${product._id}`)}}><span>Edit</span></button></td>
+              <td><button><span>Discount</span></button></td>
+              <td><button><span>Coupon</span></button></td>
             </tr>
           ))}
         </tbody>
@@ -79,4 +81,4 @@ function ProductList() {
   )
 }
 
-export default ProductList
+export default EditProduct
