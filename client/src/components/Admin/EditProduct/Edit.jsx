@@ -39,7 +39,7 @@ function Edit() {
   const [quantity4, setQuantity4] = useState(0);
   
   const [image, setImage] = useState(null);
-
+  const [imageClone, setImageClone] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,13 +51,15 @@ function Edit() {
         try {
         
           const response = await axios.get(`/User/selectedProduct/${proId}`);
-          console.log(response.data[0]);
+          setImage(response.data[0].imageUrl)
+          setImageClone(response.data[0].imageUrl)
+          console.log(response.data[0].imageUrl);
           setProductName(response.data[0].name)
           setPrice(response.data[0].price)
           setQuantity(response.data[0].quantity)
           setDescription(response.data[0].description)
           setSelectedCategory(response.data[0].category)
-          console.log(response.data[0].Kidsize.Kidsizes.zeroToOne)
+
           setQuantity1(response.data[0].Kidsize.Kidsizes.zeroToOne!=0?response.data[0].Kidsize.Kidsizes.zeroToOne:0)
           setQuantity2(response.data[0].Kidsize.Kidsizes.oneToTwo!=0?response.data[0].Kidsize.Kidsizes.oneToTwo:0)
           setQuantity3(response.data[0].Kidsize.Kidsizes.twoToThree!=0?response.data[0].Kidsize.Kidsizes.twoToThree:0)
@@ -91,30 +93,36 @@ function Edit() {
  
   const handleImageChange = (e) => {
     const selectedFiles = e.target.files;
+    console.log(e.target.files)
     const newImages = [];
 
     for (let i = 0; i < selectedFiles.length; i++) {
       newImages.push(selectedFiles[i]);
     }
-
+// console.log(newImages)
     setImage(newImages);
+    
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
      // Create a FormData object to send the image and name
-     const formData = new FormData();
  
-    // for (let i = 0; i < image.length; i++) {
-    //   formData.append('image', image[i]);
-    // }
-   
+     var formData = new FormData();
+
+     for (let i = 0; i < image.length; i++) {
+           formData.append('image', image[i]);
+        
+         }
+  
+     
     formData.append('productId',productId)
     formData.append('name', productName); 
     formData.append('price', price); 
     formData.append('quantity', quantity); 
     formData.append('category', selectedCategory); 
     formData.append('description', description); 
-
+    formData.append('imageClone', imageClone);
+  
 
     try {
       const token = localStorage.getItem('token');
@@ -132,7 +140,7 @@ function Edit() {
 
         const size =true
         formData.append('size', size); 
-       // const sizes=[{s:quantityS},{m:quantityM},{l:quantityL},{xl:quantityXL},{xxl:quantityXXL}]
+     
        const sizes = {
         s: quantityS,
         m: quantityM,
@@ -145,12 +153,12 @@ function Edit() {
         formData.append('sizes', JSON.stringify(sizes));
        console.log(sizes)
 
-        const response = await axios.post("/Admin/updateProduct",formData, {
+        const response = await axios.put("/Admin/updateProduct",formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
         });
-        console.log(response.data)
+        // console.log(response.data)
        
       }else if (selectedCategory == "Kids"){
 
@@ -164,15 +172,15 @@ function Edit() {
         formData.append('Kidsizes', JSON.stringify(Kidsizes)); 
         const Kidsize =true
         formData.append('Kidsize', Kidsize); 
-        console.log(Kidsizes)
-        const response = await axios.post("/Admin/updateProduct",formData,  {
+       
+        const response = await axios.put("/Admin/updateProduct",formData,  {
           headers: {
             "Content-Type": "multipart/form-data",
           },
         });
         // console.log(response.data);
       }else{
-        const response = await axios.post("/Admin/updateProduct", formData, {
+        const response = await axios.put("/Admin/updateProduct", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -236,7 +244,7 @@ const handleCheckboxChange4 = () => {
      
     <div className="content-box">
      
-      <form action="" onSubmit={handleSubmit}>
+      <form action="" onSubmit={handleSubmit} >
         <div className="input-contents">
 <div className="left-input">
 <label for="username">Name: </label>
@@ -541,14 +549,14 @@ const handleCheckboxChange4 = () => {
           />
          
          <label htmlFor="image">Image:</label>
-      <input
-        type="file"
-        id="image"
-        name="image" 
-        accept="image/*"
-        multiple
-        onChange={handleImageChange}
-      />
+         <input
+          type="file"
+          id="image"
+          name="image" 
+          accept="image/*"
+          multiple
+          onChange={handleImageChange}
+        />
 </div>
 
         

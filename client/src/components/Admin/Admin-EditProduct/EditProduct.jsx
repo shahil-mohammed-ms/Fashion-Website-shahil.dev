@@ -43,9 +43,10 @@ function EditProduct() {
             <th>Category</th>
             <th>Quantity </th>
             <th>Price</th>
-            <th>Edit</th>
+            {/* <th>Edit</th>
             <th>Discound</th>
             <th>coupon</th>
+            <th>Delete</th> */}
           </tr>
         </thead>
         <tbody>
@@ -70,9 +71,10 @@ function EditProduct() {
               <td>{product.category}</td>
               <td>{product.quantity}</td>
               <td>RS : {product.price.toFixed(2)}</td>
-              <td><button onClick={()=>{navigate(`/Edit?proId=${product._id}`)}}><span>Edit</span></button></td>
+              <td ><button onClick={()=>{navigate(`/Edit?proId=${product._id}`)}}><span>Edit</span></button></td>
               <td><button><span>Discount</span></button></td>
               <td><button><span>Coupon</span></button></td>
+              <td><button><span>Delete</span></button></td>
             </tr>
           ))}
         </tbody>
