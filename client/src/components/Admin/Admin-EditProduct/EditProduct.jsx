@@ -21,7 +21,7 @@ function EditProduct() {
       const sellerId = decodedToken.userId
         const fetchData=await axios.post(`/Admin/getSellerItemsList`,{sellerId})
         setProductList(fetchData.data)
-        console.log(fetchData.data)
+        
       }
       
     
@@ -31,6 +31,19 @@ function EditProduct() {
     handleGetUserId()
    
   }, [])
+
+  // delete product 
+
+const deleteProduct = async (proId)=>{
+
+const response = await axios.post('/Admin/deleteproduct',{proId})
+
+if(response.data.response){
+
+  window.location.reload();
+}
+
+}
  
   return (
     <>
@@ -74,7 +87,7 @@ function EditProduct() {
               <td ><button onClick={()=>{navigate(`/Edit?proId=${product._id}`)}}><span>Edit</span></button></td>
               <td><button><span>Discount</span></button></td>
               <td><button><span>Coupon</span></button></td>
-              <td><button><span>Delete</span></button></td>
+              <td><button onClick={()=>{deleteProduct(product._id)}} ><span>Delete</span></button></td>
             </tr>
           ))}
         </tbody>

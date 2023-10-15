@@ -1,5 +1,6 @@
 var express = require("express");
 const multer = require("multer");
+const fs = require('fs');
 var router = express.Router();
 const mongoose = require('mongoose');
 const Seller = require('../src/db/Models/SellerSchema')
@@ -138,13 +139,6 @@ try{
 
 router.put('/updateProduct',upload.array('image', 5), async (req, res) => {
 
-  
-  console.log('files')
-  console.log(req.files.length)
-  
- 
- 
-  
   let imageUrls;
 
   const {
@@ -161,21 +155,42 @@ router.put('/updateProduct',upload.array('image', 5), async (req, res) => {
     Kidsizes,
     Kidsize,
   } = req.body;
-
+console.log(imageClone)
  
   if (req.files.length<=0) {
-    console.log('true bo')
+   
    imageUrls=imageClone
   } else {
-    console.log('false fi')
+  
     try {
       imageUrls = req.files.map((file) => {
       console.log(file.filename)
         return file.filename; // Assuming the files are stored in the 'uploads' folder
       });
 
-   
-//write product old image delete code here....
+
+      const deleteImages = async () => {
+        // Split the imageClone string into an array of image filenames
+        const imageFilenames = imageClone.split('\n');
+      
+        // Loop through the image filenames and delete each image
+        imageFilenames.forEach((imageName) => {
+          const path = './public/images/product/' + imageName.trim(); // Trim to remove any leading/trailing whitespace
+      
+          fs.unlink(path, (err) => {
+            if (err) {
+              console.error('Error deleting file:', err);
+            } else {
+              console.log('File deleted successfully: ' + imageName);
+            }
+          });
+        });
+      };
+      
+      await deleteImages();
+      
+      
+
 
     } catch (e) {
       console.log(e);
@@ -208,7 +223,8 @@ router.put('/updateProduct',upload.array('image', 5), async (req, res) => {
       },
       { new: true }
     ).exec();
-   
+
+  
     res.json(Data);
   } catch (e) {
     console.log(e);
@@ -216,7 +232,19 @@ router.put('/updateProduct',upload.array('image', 5), async (req, res) => {
 });
 
 
+router.post('/deleteproduct',async(req,res)=>{
+const {proId} = req.body
+ const id =new mongoose.Types.ObjectId (proId)
+try {
+  const deleteProduct = await sellerProduct.findOneAndDelete(proId)
+res.json({response:true})
 
+} catch (error) {
+  res.json({response:false})
+}
+
+
+})
 
 
 
