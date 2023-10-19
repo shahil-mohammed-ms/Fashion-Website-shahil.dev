@@ -40,6 +40,9 @@ coupon:{
   isCoupon:{
     type:Boolean,
     default:false
+  },
+  coupons:{
+    type:Array
   }
 },
 size:{
@@ -47,14 +50,6 @@ size:{
     type:Boolean,
     default:false
   },
-  // sizes:[
-  //   {s:{type:Number,default:0 }},
-  //   {m:{type:Number,default:0}},
-  //  { l:{type:Number,default:0}},
-  //   {xl:{type:Number,default:0}},
-  //  { xxl:{type:Number,default:0}}
-  // ]  
-  //  sizes: {
     sizes: {
       s: { type: Number, default: 0 },
       m: { type: Number, default: 0 },

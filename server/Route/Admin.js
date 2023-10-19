@@ -5,6 +5,7 @@ var router = express.Router();
 const mongoose = require('mongoose');
 const Seller = require('../src/db/Models/SellerSchema')
 const sellerProduct = require('../src/db/Models/ProductSchema')
+const Coupon = require('../src/db/Models/CouponSchema')
 
 var Storage = multer.diskStorage({
   destination: "./public/images/product",
@@ -246,7 +247,72 @@ res.json({response:true})
 
 })
 
+router.post('/updateDiscount',async(req,res)=>{
+const {productIdDiscount,discount}  = req.body
+const id = new mongoose.Types.ObjectId(productIdDiscount)
 
+try {
+
+  const updateDiscound = sellerProduct.findOneAndUpdate({
+    _id:id
+  },{
+    discound:{
+      isDiscound:true,
+      discoundPercentage:discount
+
+    }
+
+   } ,{new: true }).exec();
+  
+   res.json({response:true})
+} catch (error) {
+  
+}
+
+
+})
+
+router.post('/Coupon',async(req,res)=>{
+
+console.log(req.body)
+const { couponName,
+  couponCode,
+  couponDiscount,
+  couponExpiryDate,
+  productIdCoupon} = req.body
+
+  const id = new mongoose.Types.ObjectId(productIdCoupon)
+
+try {
+  
+  const coupon =await new Coupon({
+code:couponCode,
+name:couponName,
+discount:couponDiscount,
+expiryDate:couponExpiryDate,
+
+  })
+
+  coupon.save()
+  console.log(coupon._id)
+
+const product = await sellerProduct.findById({_id:id})
+
+
+product.coupon.coupons.push(coupon._id)
+
+await product.save();
+
+res.json({response:true})
+
+} catch (error) {
+  console.log(error)
+  res.json({response:false})
+}
+
+
+
+})
 
 
 module.exports = router;

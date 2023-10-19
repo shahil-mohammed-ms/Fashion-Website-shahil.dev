@@ -9,7 +9,7 @@ const Cart = require('../src/db/Models/CartSchema')
 
 router.get('/getProducts/:category',async(req,res)=>{
 
-console.log(req.params.category)
+
 try{
 
   const Data =await ProductData.find({category:req.params.category}).exec();
@@ -42,7 +42,56 @@ router.get('/selectedProduct/:id',async(req,res)=>{
   
   })
 
+//   router.get('/getSortData/:category/:sortType',async(req,res)=>{ 
+
+//    const sortType = req.params.sortType     
+// console.log('received')
+//     console.log(req.params)
+//     let Data
+// try {
   
+//    Data =await ProductData.find({category:req.params.category}).exec();
+// if(sortType === 'lowToHigh'){
+//   Data.sort((a, b) => sortOrder * (a.price - b.price));
+//   res.json(Data)
+// }else{
+//   Data.sort((a, b) => sortOrder * (b.price - a.price));
+//   res.json(Data)
+// }
+
+
+// } catch (error) {
+//   console.log(error)
+// }
+
+//   })
+
+router.get('/getSortData/:category/:sortType', async (req, res) => {
+  const sortType = req.params.sortType;
+  console.log('received');
+  console.log(req.params);
+  let Data;
+  
+  try {
+    Data = await ProductData.find({ category: req.params.category }).exec();
+    
+    let sortOrder; // Define the sortOrder variable
+
+    if (sortType === 'lowToHigh') {
+      sortOrder = 1; // Ascending order
+    } else {
+      sortOrder = -1; // Descending order
+    }
+
+    Data.sort((a, b) => sortOrder * (a.price - b.price));
+    console.log(Data)
+    res.json(Data);
+
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 
 
 

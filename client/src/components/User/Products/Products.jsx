@@ -90,20 +90,61 @@ console.log(e)
    
   }, [])
 
-  const handlePriceClick = (event) => {
+  const handlePriceClick =async (event) => {
+    
     setPriceAnchorEl(event.currentTarget);
+
   };
+
+  //                                                                        & sort menu
+  const handleSort =async ()=>{
+// if event.currentTarget=== names then fetch data and setproduct value
+
+setPriceAnchorEl(null);
+
+if(value === 'highToLow' || value === 'lowToHigh'){
+ 
+try {
+  
+  const queryParams = new URLSearchParams(location.search);
+   
+  
+      
+      const categoryValue =queryParams.get('category')
+ 
+     const response = await axios.get(`/User/getSortData/${categoryValue}/${value}`)
+     console.log(response.data)
+     setProducts(response.data)
+     
+} catch (error) {
+  console.log(error)
+}
+
+
+
+
+}else{
+
+  console.log('check')
+}
+
+  }
 
   const handlePriceClose = () => {
     setPriceAnchorEl(null);
   };
 
-  // Rating menu
+  //                                                                                Rating 
+
   const [ratingAnchorEl, setRatingAnchorEl] = useState(null);
   const ratingOpen = Boolean(ratingAnchorEl);
 
   const handleRatingClick = (event) => {
+    // console.log(event.currentTarget)
     setRatingAnchorEl(event.currentTarget);
+
+
+
   };
 
   const handleRatingClose = () => {
@@ -130,7 +171,7 @@ navigate(`/selectedProduct?proId=${id}&category=${category}`)
     <div className="product-main">
 
       <div className="header">
-<div className="brandlogo"><h2>fasion-store</h2></div>
+<div className="brandlogo"><h2 onClick={()=>navigate('/UserHome')}>fasion-store</h2></div>
 
 <div className="searchbar">
       <input type="text" className="search-input" placeholder="Search..." />
@@ -165,9 +206,9 @@ h
   </div>
    
 <div className="profileDetails"> <Box>
-              <Fab variant='extended'className="smallFab">
+              {/* <Fab variant='extended'className="smallFab">
 
-              </Fab>
+              </Fab> */}
               <Fab variant='extended'className="smallFab-mobile">
 p
               </Fab>
@@ -180,10 +221,8 @@ p
       <div className="topContent">
 
         
-        {/* <div className="sideBar">
-          <h1 className='firmName' onClick={()=>{
-            navigate('/UserHome')
-          }}>Fashion-Hub</h1>
+        {/* <div className="sideBar"> */}
+         
           <div className="sortrating">
 
           <div className='side-box a'>
@@ -205,6 +244,7 @@ p
               handleClose={handlePriceClose}
               value={value}
               handleChange={handleChange}
+              handleSort={handleSort}
             />
           </div>
           <div className='side-box b'>
@@ -229,26 +269,9 @@ p
             />
           </div>
           </div>
-        
-        
-<Fab variant="extended" className='searchfab'>
-      
-      <Search>
-          <SearchIconWrapper>
-          <SearchIcon/>
-          </SearchIconWrapper>
-          <StyledInputBase
-            placeholder="Search…"
-            inputProps={{ 'aria-label': 'search' }}
-          />
-        </Search>
-    </Fab>
-
-        </div> */}
+        {/* </div> */}
         <div className="product-main-sub">
 
-        
-          
         {products.map((product, index) => (
         <div key={index} className="product-boxes" onClick={() => onClickProduct(product._id)}  >
 <div className="product-img" style={{
@@ -258,10 +281,12 @@ p
 <div className="product-box-footer">
   <div className="product-footer-top">
     <h3>{product.name}</h3>
-  
+    <div className="rate-box"><p>RS : {product.price}</p></div>
   </div>
-  <div className="rate-box"><p>RS : {product.price}</p></div>
+  
 <div className="product-addcart">
+
+
 {true ? (
   <div className="p-addtowishlist">
     <Box sx={{ '& > :not(style)': { m: 1 } }}>

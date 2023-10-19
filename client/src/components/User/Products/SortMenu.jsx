@@ -6,12 +6,16 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
 
-function SortMenu({ anchorEl, open, handleClose, value, handleChange }) {
+function SortMenu({ anchorEl, open, handleClose, value, handleChange,handleSort }) {
+
+
+
   return (
     <Menu
       anchorEl={anchorEl}
       open={open}
       onClose={handleClose}
+      
       MenuListProps={{
         'aria-labelledby': 'basic-button',
       }}
@@ -31,6 +35,7 @@ function SortMenu({ anchorEl, open, handleClose, value, handleChange }) {
           </MenuItem>
         </RadioGroup>
       </FormControl>
+      <button onClick={handleSort}>Apply</button>
     </Menu>
   );
 }
