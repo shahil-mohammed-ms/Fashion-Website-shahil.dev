@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import { Link, Outlet, useNavigate } from 'react-router-dom';
-
+import axios from '../../../axios'
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
 import SearchIcon from '@mui/icons-material/Search';
@@ -70,7 +70,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 function Home() {
   const navigate = useNavigate();
-  
+  const [search,setSearch] = useState('')
   //drawer
   const [state, setState] = useState({
    
@@ -114,6 +114,21 @@ function Home() {
 
   }
 
+
+// search product based on  name
+
+const handleSearch = async(e) =>{
+  e.preventDefault()
+  console.log('clicked')
+
+  navigate(`/Search?qsearch=${search}`)
+  
+  
+  
+  }
+
+
+
   return (
   <div className="home">
 
@@ -141,7 +156,7 @@ function Home() {
   </div>
 </div>
 <div className="headerMiddle">
-  <div className="searchBox"> 
+  {/* <div className="searchBox"> 
    <Fab variant="extended">
       
       <Search>
@@ -154,6 +169,12 @@ function Home() {
           />
         </Search>
     </Fab>
+    </div> */}
+    <div className="searchbar">
+      <input type="text" className="search-input" placeholder="Search..." value={search} onChange={(e)=>setSearch(e.target.value)} />
+      <Fab variant="extended" className="smallFab searchbutton">
+<SearchIcon onClick={(e)=>handleSearch(e)}  />
+</Fab>
     </div>
     </div>
 

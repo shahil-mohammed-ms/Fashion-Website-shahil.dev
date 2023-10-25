@@ -6,7 +6,8 @@ sellerId : {
   type:String
 },
 name:{
-  type:String
+  type:String,
+  text: true 
 },
 price:{
   type:Number
@@ -24,7 +25,8 @@ category:{
 },
 description:{
   type:String,
-  required:true
+  required:true,
+  text: true 
 },  
 discound:{
   isDiscound:{

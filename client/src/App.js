@@ -15,6 +15,7 @@ import CartPage from "./pages/User/CartPage";
 import PaymentPage from "./pages/User/PaymentPage";
 import EditProductPage from "./pages/Admin/EditProductPage";
 import EditPage from "./pages/Admin/EditPage";
+import SearchPage from "./pages/User/SearchPage";
 
 
 import './App.css'
@@ -74,6 +75,9 @@ function App() {
 </Routes>
 <Routes>
 <Route path="/Edit" element={<EditPage/>}/>
+</Routes>
+<Routes>
+<Route path="/Search" element={<SearchPage/>}/>
 </Routes>
   </Router>
     </div>

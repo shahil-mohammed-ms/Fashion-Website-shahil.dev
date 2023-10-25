@@ -8,7 +8,6 @@ import RatingMenu from './RatingMenu';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarRateIcon from '@mui/icons-material/StarRate';
-
 import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
@@ -68,6 +67,7 @@ function Products() {
   const location = useLocation();
   const navigate = useNavigate();
 const [products,setProducts] = useState([])
+const [search,setSearch] = useState('')
 
 
   useEffect(() => {
@@ -167,6 +167,19 @@ navigate(`/selectedProduct?proId=${id}&category=${category}`)
 
   }
 
+// search product based on category and name
+
+const handleSearch = async(e) =>{
+e.preventDefault()
+
+const response = await axios.get(`/User/searchonCategory/${category}/${search}`)
+
+setProducts(response.data)
+
+
+}
+
+
   return (
     <div className="product-main">
 
@@ -174,9 +187,9 @@ navigate(`/selectedProduct?proId=${id}&category=${category}`)
 <div className="brandlogo"><h2 onClick={()=>navigate('/UserHome')}>fasion-store</h2></div>
 
 <div className="searchbar">
-      <input type="text" className="search-input" placeholder="Search..." />
+      <input type="text" className="search-input" placeholder="Search..." value={search} onChange={(e)=>setSearch(e.target.value)} />
       <Fab variant="extended" className="smallFab searchbutton">
-<SearchIcon/>
+<SearchIcon onClick={(e)=>handleSearch(e)} />
 </Fab>
     </div>
 

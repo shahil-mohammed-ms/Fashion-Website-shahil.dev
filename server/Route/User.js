@@ -92,6 +92,41 @@ router.get('/getSortData/:category/:sortType', async (req, res) => {
   }
 });
 
+// category search
+
+router.get('/searchonCategory/:category/:squery',async(req,res)=>{
+
+  const {category,squery} = req.params
+  const searchFilter = { $text: { $search: squery } };
+  if (category) {
+    searchFilter.category = category;
+  }
+
+try {
+  
+  Data = await ProductData.find(searchFilter).exec();
+  console.log(Data)
+res.json(Data)
+} catch (error) {
+  
+}
+})
+
+// home search                
+
+router.get('/search/:squery',async(req,res)=>{
+
+  const {squery} = req.params
+  console.log(req.params)
+try {
+  
+  Data = await ProductData.find({ $text: { $search: squery } }).exec();
+  console.log(Data)
+  res.json(Data)
+} catch (error) {
+  
+}
+})
 
 
 
