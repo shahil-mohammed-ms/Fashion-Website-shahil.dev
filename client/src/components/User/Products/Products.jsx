@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useRef } from 'react';
 import { useNavigate,useLocation } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
@@ -11,6 +11,8 @@ import StarRateIcon from '@mui/icons-material/StarRate';
 import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 import axios from '../../../axios'
 import './Products.css';
@@ -68,27 +70,77 @@ function Products() {
   const navigate = useNavigate();
 const [products,setProducts] = useState([])
 const [search,setSearch] = useState('')
+// for scrolling loading
+const [loading, setLoading] = useState(false);
+const [page, setPage] = useState(1);
 
+
+
+
+// getting products
+const fetchProductData = async (currentPage) =>{
+  setLoading(true);
+  setTimeout( async() => {
+    try{
+    
+      const queryParams = new URLSearchParams(location.search);
+      // const category =await
+      setCategory(queryParams.get('category'))  
+      
+    const response = await axios.get(`/User/getProducts/${queryParams.get('category')}/${+currentPage}`)
+    
+   
+    setProducts((prevProducts) => [...prevProducts, ...response.data])
+
+    setLoading(false);
+    }catch(e){
+      setLoading(false);
+    console.log(e)
+    }
+
+  }, 1000);
+ 
+        
+      }
+
+      const initialLoadRef = useRef(false);
 
   useEffect(() => {
+    if (!initialLoadRef.current) {
+      fetchProductData();
+       initialLoadRef.current = true;
+       console.log('1');
+       }
+      }, []);
 
-    const fetchData = async () =>{
-try{
-  const queryParams = new URLSearchParams(location.search);
-  // const category =await
-  setCategory(queryParams.get('category'))  
-  
-const response = await axios.get(`/User/getProducts/${queryParams.get('category')}`)
-console.log(response.data)
-setProducts(response.data)
-}catch(e){
-console.log(e)
-}
       
+
+
+  const handleScroll = () => {
+    if (
+      window.innerHeight + document.documentElement.scrollTop ===
+      document.documentElement.offsetHeight
+    ) {
+      // User has scrolled to the bottom of the page
+      if (!loading) {
+        console.log(page);
+        const nextPage = page + 1;
+        setPage(nextPage);
+        console.log(nextPage);
+        fetchProductData(nextPage);
+
+      }
     }
-    fetchData()
-   
-  }, [])
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [loading]);
+
+
 
   const handlePriceClick =async (event) => {
     
@@ -188,9 +240,13 @@ setProducts(response.data)
 
 <div className="searchbar">
       <input type="text" className="search-input" placeholder="Search..." value={search} onChange={(e)=>setSearch(e.target.value)} />
-      <Fab variant="extended" className="smallFab searchbutton">
+      {/* <Fab variant="extended" className="smallFab searchbutton">
 <SearchIcon onClick={(e)=>handleSearch(e)} />
+</Fab> */}
+<Fab variant="extended" className="smallFab searchbutton" onClick={(e) => handleSearch(e)}>
+  <SearchIcon />
 </Fab>
+
     </div>
 
 
@@ -329,11 +385,19 @@ p
       ))}
 
         </div>
+     
        
       </div>
-      <div className="footer">
-        {/* Your footer */}
-      </div>
+         {loading && (
+      <div className="loadingbar">
+<Box sx={{ display: 'flex', justifyContent: 'center', my: 2 }}>
+          <CircularProgress />
+        </Box>
+      </div>  
+      )}
+      {/* <div className="footer">
+       
+      </div> */}
     </div>
   )
 }

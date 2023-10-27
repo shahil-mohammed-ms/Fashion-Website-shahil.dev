@@ -7,12 +7,18 @@ const Cart = require('../src/db/Models/CartSchema')
 
 //get products router
 
-router.get('/getProducts/:category',async(req,res)=>{
+router.get('/getProducts/:category/:page',async(req,res)=>{
 
 
 try{
+ 
+  const page = parseInt(req.params.page, 10);
 
-  const Data =await ProductData.find({category:req.params.category}).exec();
+  const limit = 3; // Number of products per page
+  const skip = (page - 1) * limit;
+  console.log(skip)
+
+  const Data =await ProductData.find({category:req.params.category}).skip(skip).limit(limit).exec();
   // console.log(Data)
   res.json(Data)
 }catch(e){

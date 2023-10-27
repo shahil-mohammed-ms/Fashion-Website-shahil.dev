@@ -3,7 +3,7 @@ import { useNavigate,useLocation } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
-
+import CircularProgress from '@mui/material/CircularProgress';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarRateIcon from '@mui/icons-material/StarRate';
@@ -17,6 +17,9 @@ function Search() {
   const navigate = useNavigate();
 const [products,setProducts] = useState([])
 const [search,setSearch] = useState('')
+// for scrolling loading
+const [loading, setLoading] = useState(false);
+const [page, setPage] = useState(1);
 
 
 
@@ -27,7 +30,6 @@ const FetchData = async ()=>{
   const qsearch = queryParams.get('qsearch')
   const response = await axios.get(`/User/search/${qsearch}`)
  setProducts(response.data)
- console.log(response.data)
 
 }
 
