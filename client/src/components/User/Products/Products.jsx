@@ -1,5 +1,6 @@
 import React, { useState, useEffect,useRef } from 'react';
 import { useNavigate,useLocation } from 'react-router-dom';
+import jwt_decode from 'jwt-decode';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
@@ -73,9 +74,29 @@ const [search,setSearch] = useState('')
 // for scrolling loading
 const [loading, setLoading] = useState(false);
 const [page, setPage] = useState(1);
+const [userId,setUserId] = useState(null)
+const [userWishlist, setUserWishlist] = useState([]);
 
+useEffect(()=>{
+  const getData = async()=>{
+    const token = localStorage.getItem('Usertoken');
+    
+    if (token) {
+      // Decode the token to get user details
+      const decodedToken = jwt_decode(token);
+      console.log(decodedToken.userId)
+      setUserId(decodedToken.userId)
 
+const response = await axios.post('/User/getUserDetails',{userId:decodedToken.userId})
+setUserWishlist(response.data.Wishlist)
 
+console.log(response.data.Wishlist)
+    
+    }
+  }
+  getData()
+  
+    },[userId])
 
 // getting products
 const fetchProductData = async (currentPage) =>{
@@ -231,6 +252,32 @@ setProducts(response.data)
 
 }
 
+// wishlist  setProducts((prevProducts) => [...prevProducts, ...response.data])
+
+const AddtoWistlist = async (proId)=>{
+console.log(userWishlist)
+setUserWishlist((prev) => [...prev, proId]);
+
+console.log(userWishlist);
+  const response = await axios.post(`/User/addtoWishlist`,{
+    proId:proId,
+    userId:userId
+
+  })
+
+}
+const RemoveFromWistlist = async (proId)=>{
+  console.log(userWishlist)
+  setUserWishlist(userWishlist.filter((id) => id !== proId));
+  console.log(userWishlist)
+  const response = await axios.post(`/User/removefromWishlist`,{
+    proId:proId,
+    userId:userId
+
+  })
+
+}
+
 
   return (
     <div className="product-main">
@@ -342,10 +389,11 @@ p
         <div className="product-main-sub">
 
         {products.map((product, index) => (
-        <div key={index} className="product-boxes" onClick={() => onClickProduct(product._id)}  >
+        <div  key={product._id} className="product-boxes"   >
 <div className="product-img" style={{
         backgroundImage: `url(http://localhost:5000/image/images/product/${product.imageUrl[0]})`,
-      }}></div>
+      }}   
+      onClick={() => onClickProduct(product._id)}  ></div>
 
 <div className="product-box-footer">
   <div className="product-footer-top">
@@ -356,9 +404,9 @@ p
 <div className="product-addcart">
 
 
-{true ? (
-  <div className="p-addtowishlist">
-    <Box sx={{ '& > :not(style)': { m: 1 } }}>
+{!userWishlist.includes(product._id) ? (
+  <div className="p-addtowishlist notwished" >
+    <Box sx={{ '& > :not(style)': { m: 1 } }}  onClick={(e)=>{AddtoWistlist(product._id);e.preventDefault()}} >
       <Fab variant="extended">
         <StarBorderIcon sx={{ mr: 1 }} />
         Wish list
@@ -366,8 +414,8 @@ p
     </Box>
   </div>
 ) : (
-  <div className="p-addtowishlist"> 
-    <Box sx={{ '& > :not(style)': { m: 1 } }}>
+  <div className="p-addtowishlist wished"> 
+    <Box sx={{ '& > :not(style)': { m: 1 } }} onClick={(e)=>{RemoveFromWistlist(product._id);e.preventDefault()}} >
       <Fab variant="extended">
         <StarIcon sx={{ mr: 1 }} />
         Wish list
@@ -395,9 +443,7 @@ p
         </Box>
       </div>  
       )}
-      {/* <div className="footer">
-       
-      </div> */}
+    
     </div>
   )
 }

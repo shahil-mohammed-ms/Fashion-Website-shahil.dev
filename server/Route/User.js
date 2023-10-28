@@ -3,6 +3,7 @@ var router = express.Router();
 const mongoose = require('mongoose');
 const ProductData = require('../src/db/Models/ProductSchema')
 const Cart = require('../src/db/Models/CartSchema')
+const User = require('../src/db/Models/UserSchema')
 
 
 //get products router
@@ -120,18 +121,79 @@ res.json(Data)
 
 // home search                
 
-router.get('/search/:squery',async(req,res)=>{
+router.get('/search/:squery/:page',async(req,res)=>{
 
   const {squery} = req.params
   console.log(req.params)
 try {
+
+  const page = parseInt(req.params.page, 10); 
+
+  const limit = 1; // Number of products per page
+  const skip = (page - 1) * limit;
+  console.log(skip)
   
-  Data = await ProductData.find({ $text: { $search: squery } }).exec();
+  Data = await ProductData.find({ $text: { $search: squery } }).skip(skip).limit(limit).exec();
   console.log(Data)
   res.json(Data)
 } catch (error) {
   
 }
+})
+
+
+//             Creating user Wishlist
+
+
+router.post('/addtoWishlist',async(req,res)=>{
+  const {proId,userId} = req.body
+try {
+ 
+  const user = await User.findById(userId);
+
+  user.Wishlist.push(proId);
+
+    // Save the updated user document
+    await user.save();
+} catch (error) {
+  
+}
+
+
+})
+
+router.post('/removefromWishlist',async(req,res)=>{
+
+  const {proId,userId} = req.body
+  try {
+    const user = await User.findById(userId);
+    console.log(proId)
+    console.log(user.Wishlist)
+    user.Wishlist =await user.Wishlist.filter((productId) => productId !== proId); 
+console.log(user.Wishlist)
+    await user.save();
+    
+  } catch (error) {
+    
+  }
+
+  
+})
+//get userDetails
+
+router.post('/getUserDetails',async(req,res)=>{
+const{userId} = req.body
+
+try {
+  const user = await User.findById(userId);
+
+  res.json(user)
+
+
+} catch (error) {
+  
+}
+
 })
 
 

@@ -28,7 +28,7 @@ function SelectedProduct() {
   const [product,setProduct] = useState({})
   const [category,setCategory] = useState('')
   const [userId,setUserId] = useState('')
-
+  const [userWishlist, setUserWishlist] = useState([]);
 
   function handleClick(event) {
     event.preventDefault();
@@ -36,15 +36,22 @@ function SelectedProduct() {
   }
   
 useEffect(()=>{
-  const token = localStorage.getItem('Usertoken');
+  const getData = async()=>{
+    const token = localStorage.getItem('Usertoken');
+    
+    if (token) {
+      // Decode the token to get user details
+      const decodedToken = jwt_decode(token);
+   
+      setUserId(decodedToken.userId)
 
-  if (token) {
-    // Decode the token to get user details
-    const decodedToken = jwt_decode(token);
-    console.log(decodedToken.userId)
-    setUserId(decodedToken.userId)
-  
+const response = await axios.post('/User/getUserDetails',{userId:decodedToken.userId})
+setUserWishlist(response.data.Wishlist)
+
+    
+    }
   }
+  getData()
   
 },[])
 
@@ -179,6 +186,32 @@ console.log(response.data)
  }
 
 
+//                                      wishlist  
+
+const AddtoWistlist = async (proId)=>{
+  console.log(userWishlist)
+  setUserWishlist((prev) => [...prev, proId]);
+  
+  console.log(userWishlist);
+    const response = await axios.post(`/User/addtoWishlist`,{
+      proId:proId,
+      userId:userId
+  
+    })
+  
+  }
+  const RemoveFromWistlist = async (proId)=>{
+    console.log(userWishlist)
+    setUserWishlist(userWishlist.filter((id) => id !== proId));
+    console.log(userWishlist)
+    const response = await axios.post(`/User/removefromWishlist`,{
+      proId:proId,
+      userId:userId
+  
+    })
+  
+  }
+ 
 
   return (
     <div className="selectedProduct-main">
@@ -241,9 +274,9 @@ console.log(response.data)
   </div>
 </div>
 <div className="p-addtocartWishlist">
-{true ? (
+{!userWishlist.includes(product._id)  ? (
   <div className="p-addtowishlist">
-    <Box sx={{ '& > :not(style)': { m: 1 } }}>
+    <Box sx={{ '& > :not(style)': { m: 1 } }}  onClick={(e)=>{AddtoWistlist(product._id);e.preventDefault()}} >
       <Fab variant="extended">
         <StarBorderIcon sx={{ mr: 1 }} />
        <p className='wishbuymob'>Save</p>
@@ -252,7 +285,7 @@ console.log(response.data)
   </div>
 ) : (
   <div className="p-addtowishlist"> 
-    <Box sx={{ '& > :not(style)': { m: 1 } }}>
+    <Box sx={{ '& > :not(style)': { m: 1 } }} onClick={(e)=>{RemoveFromWistlist(product._id);e.preventDefault()}}>
       <Fab variant="extended">
         <StarIcon sx={{ mr: 1 }} />
         <p className='wishbuymob'>Save</p>

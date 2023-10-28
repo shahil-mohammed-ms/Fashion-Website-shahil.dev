@@ -1,5 +1,6 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useRef} from 'react'
 import { useNavigate,useLocation } from 'react-router-dom';
+import jwt_decode from 'jwt-decode';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
@@ -20,21 +21,91 @@ const [search,setSearch] = useState('')
 // for scrolling loading
 const [loading, setLoading] = useState(false);
 const [page, setPage] = useState(1);
-
-
+const [userWishlist, setUserWishlist] = useState([]);
+const initialLoadRef = useRef(false);
+const scrollSearchRef = useRef(false);
+const [userId,setUserId] = useState(null)
 
 useEffect(()=>{
+  const getData = async()=>{
+    const token = localStorage.getItem('Usertoken');
+    
+    if (token) {
+      // Decode the token to get user details
+      const decodedToken = jwt_decode(token);
+      console.log(decodedToken.userId)
+      setUserId(decodedToken.userId)
 
-const FetchData = async ()=>{
-  const queryParams = new URLSearchParams(location.search);
-  const qsearch = queryParams.get('qsearch')
-  const response = await axios.get(`/User/search/${qsearch}`)
- setProducts(response.data)
+const response = await axios.post('/User/getUserDetails',{userId:decodedToken.userId})
+setUserWishlist(response.data.Wishlist)
+
+console.log(response.data.Wishlist)
+    
+    }
+  }
+  getData()
+  
+    },[userId])
+
+const FetchData = async (currentPage)=>{
+
+  setLoading(true);
+
+  setTimeout( async() => {
+
+    const queryParams = new URLSearchParams(location.search);
+    const qsearch = queryParams.get('qsearch')
+    const response = await axios.get(`/User/search/${qsearch}/${currentPage}`)
+    setProducts((prevProducts) => [...prevProducts, ...response.data])
+  
+    setLoading(false);
+
+  }, 1000);
+
+
 
 }
 
-FetchData()
+
+useEffect(()=>{
+  if (!initialLoadRef.current) {
+    FetchData()
+     initialLoadRef.current = true;
+     }
 },[])
+
+const handleScroll = () => {
+  if (
+    window.innerHeight + document.documentElement.scrollTop ===
+    document.documentElement.offsetHeight
+  ) {
+    // User has scrolled to the bottom of the page
+    if (!loading) {
+      console.log(page);
+      const nextPage = page + 1;
+      setPage(nextPage);
+      
+
+      if(search.length===0){
+        FetchData(nextPage)
+      }else{
+         handleSearch(nextPage)
+         console.log(nextPage);
+      }
+     
+
+    }
+  }
+};
+
+useEffect(() => {
+  window.addEventListener('scroll', handleScroll);
+  return () => {
+    window.removeEventListener('scroll', handleScroll);
+  };
+}, [loading]);
+
+
 
  //in clicking product
  const onClickProduct = (id) =>{
@@ -42,15 +113,66 @@ FetchData()
   navigate(`/selectedProduct?proId=${id}`)
   
     }
-    const handleSearch = async(e) =>{
-     
-      
-      const response = await axios.get(`/User/search/${search}`)
-      
-      setProducts(response.data)
-      
-      
+
+
+    const handleSearch = async(currentPage) =>{
+
+      // e.preventDefault()
+
+      setLoading(true);
+      if (!scrollSearchRef.current) {
+        console.log('Clearing products array');
+        setProducts([]);
+        setPage(1)
+        scrollSearchRef.current = true;
+      } else {
+        console.log('Appending to products array');
       }
+
+
+        setTimeout( async() => {
+          const response = await axios.get(`/User/search/${search}/${currentPage}`)
+          
+       setProducts((prevProducts) => [...prevProducts, ...response.data])
+        
+          setLoading(false);
+      
+        }, 1000);
+
+   
+
+      //  const nextPage = page + 1;
+      // setPage(nextPage);
+      
+       
+     
+      }
+
+// wishlist  setProducts((prevProducts) => [...prevProducts, ...response.data])
+
+const AddtoWistlist = async (proId)=>{
+  console.log(userWishlist)
+  setUserWishlist((prev) => [...prev, proId]);
+  
+  console.log(userWishlist);
+    const response = await axios.post(`/User/addtoWishlist`,{
+      proId:proId,
+      userId:userId
+  
+    })
+  
+  }
+  const RemoveFromWistlist = async (proId)=>{
+    console.log(userWishlist)
+    setUserWishlist(userWishlist.filter((id) => id !== proId));
+    console.log(userWishlist)
+    const response = await axios.post(`/User/removefromWishlist`,{
+      proId:proId,
+      userId:userId
+  
+    })
+  
+  }
 
   return (
     <div className="product-main">
@@ -61,7 +183,7 @@ FetchData()
 <div className="searchbar">
     <input type="text" className="search-input" placeholder="Search..." value={search} onChange={(e)=>setSearch(e.target.value)}  />
     <Fab variant="extended" className="smallFab searchbutton">
-<SearchIcon onClick={(e)=>handleSearch(e)} />
+<SearchIcon onClick={(e)=>{handleSearch(e)}} />
 </Fab>
   </div>
 
@@ -108,10 +230,10 @@ p
       <div className="product-main-sub">
 
       {products.map((product, index) => (
-      <div key={index} className="product-boxes" onClick={() => onClickProduct(product._id)}  >
+      <div key={index} className="product-boxes"  >
 <div className="product-img" style={{
       backgroundImage: `url(http://localhost:5000/image/images/product/${product.imageUrl[0]})`,
-    }}></div>
+    }}  onClick={() => onClickProduct(product._id)}></div>
 
 <div className="product-box-footer">
 <div className="product-footer-top">
@@ -122,9 +244,9 @@ p
 <div className="product-addcart">
 
 
-{true ? (
+{!userWishlist.includes(product._id) ? (
 <div className="p-addtowishlist">
-  <Box sx={{ '& > :not(style)': { m: 1 } }}>
+  <Box sx={{ '& > :not(style)': { m: 1 } }} onClick={(e)=>{AddtoWistlist(product._id);e.preventDefault()}}>
     <Fab variant="extended">
       <StarBorderIcon sx={{ mr: 1 }} />
       Wish list
@@ -133,7 +255,7 @@ p
 </div>
 ) : (
 <div className="p-addtowishlist"> 
-  <Box sx={{ '& > :not(style)': { m: 1 } }}>
+  <Box sx={{ '& > :not(style)': { m: 1 } }} onClick={(e)=>{RemoveFromWistlist(product._id);e.preventDefault()}}>
     <Fab variant="extended">
       <StarIcon sx={{ mr: 1 }} />
       Wish list
@@ -153,9 +275,13 @@ p
       </div>
      
     </div>
-    <div className="footer">
-      {/* Your footer */}
-    </div>
+    {loading && (
+      <div className="loadingbar">
+<Box sx={{ display: 'flex', justifyContent: 'center', my: 2 }}>
+          <CircularProgress />
+        </Box>
+      </div>  
+      )}
   </div>
   )
 }
