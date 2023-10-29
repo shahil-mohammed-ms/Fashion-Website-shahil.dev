@@ -6,6 +6,7 @@ import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import CloseIcon from '@mui/icons-material/Close';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 // import Breadcrumb from './Breadcrumb';
@@ -19,9 +20,14 @@ function Cart() {
   const [userId,setUserId] = useState(null)
   const [products,setProducts]=useState([])
   // const [productQuantities, setProductQuantities] = useState(products.map(() => 0));
-  const [productQuantities, setProductQuantities] = useState([]);
+//  const [productQuantities, setProductQuantities] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
+const [couponPressed,setCouponPressed] = useState(false)
+const [couponApplied,setCouponApplied] = useState(false)
+const [couponCode,setCouponCode] = useState( null)
+const [productQuantities, setProductQuantities] = useState(products.map(() => 1));
+const [isFrozenAndBlurred, setFrozenAndBlurred] = useState(false);
  
 // const handleBuy = ()=>{
 
@@ -98,15 +104,42 @@ if(passCount>+1){
 }
      
     };
+  // applying coupon 
+
+    const openApplyCouponBox = async ()=>{
+      setCouponPressed(!couponPressed)
+      setFrozenAndBlurred(!isFrozenAndBlurred);
+
+
+
+    }
   
-    
+    const closeApplyCouponBox = async ()=>{
+      setCouponPressed(!couponPressed)
+      setFrozenAndBlurred(!isFrozenAndBlurred);
+
+
+
+
+    }
+  
+
+    const handleApplyCoupon = async ()=>{
+
+
+      setCouponPressed(!couponPressed)
+      setFrozenAndBlurred(!isFrozenAndBlurred);
+
+
+
+    }
 
 
   return (
-    <div>
+    <div className='cartmain' >
       {products.map((product,index)=>(
 
-<div className="selectedProduct-main" key={index}>
+<div  className={`selectedProduct-main ${isFrozenAndBlurred ? 'blur' : ''}`} key={product._id}>
 
 
 <div className="imgAndContent">
@@ -124,10 +157,35 @@ if(passCount>+1){
    
   </div>
 <div className="p-contnt-price">
-<p>Rs:{product.productData.price}</p>
-<p>Discount</p>
-<p>Coupon discount</p>
-<h3>Total: {product.productData.price*product.quantity}</h3>
+<div className="Realdiscount">
+
+<div className="discountpercent">
+  <span className="discpercent">
+    <h3 className='dpercenttag' >{product.productData.discound?.discoundPercentage}% off</h3>
+  </span>
+</div>
+<div className="realprice">
+  <span className="price">
+  <h3 className='mainptag' >{product.productData.price}</h3>
+  </span>
+</div>
+<div className="discountprice">
+  <span className="discprice">
+    <h3 className='dptag' >&#8377;{product.productData.price * (1 - product.productData.discound?.discoundPercentage / 100)}</h3>
+  </span>
+</div>
+</div>
+
+<div className="couponline">
+<span className="couponprice">
+  <p className='coupontag' > apply coupon upto &nbsp; <p className="cpercent">10% </p>&nbsp; off &nbsp;
+  <span className='applycouponbtnspan' onClick={()=>{openApplyCouponBox()} }><p className='applycouponbtn' > &nbsp;apply coupon</p></span>  </p>
+</span>
+</div>
+{true && <p>Coupon discount</p>}
+{/* <h3>Total: {product.productData.price * productQuantities[index]}</h3> */}
+<h3>Total: {product.productData.price * (1 - product.productData.discound?.discoundPercentage / 100) * productQuantities[index]}</h3>
+
 
 </div>
 <div className="p-quantity">
@@ -189,7 +247,27 @@ if(passCount>+1){
 
       }
   
-  
+  {couponPressed && <div className="couponcartbox">
+<div className="closebtncart"><span className="closebtnspancart" onClick={closeApplyCouponBox} ><CloseIcon /></span> </div>
+<span className="couponnamespan"><p>Coupon</p> </span>
+<div className="couponInput">
+<form action="" onSubmit={handleApplyCoupon}>
+
+<input type="text" className="couponInputForm"
+placeholder='type code...'
+name="code"
+ value={couponCode}
+            id="code"
+            onChange={(e) => {
+              setCouponCode(e.target.value);}}
+/>
+<span className='couponspanbtn' ><button type='submit'><span >Apply coupon</span></button></span>
+
+</form>
+
+</div>
+
+  </div>}
     
     </div>
   

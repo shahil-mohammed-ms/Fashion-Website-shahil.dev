@@ -4,4 +4,55 @@
 }
 
 
+
+
+.cartmain{
+  position: relative;
+  
+  }
+  .couponcartbox{
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+      border: 2px solid #000; 
+      height: 80px;
+      width: 200px;
+      position: absolute;
+      top: 0;
+      right: 0;
+  margin-top: 180px;
+  margin-right: 150px;
+  position: fixed;
+  }
+  .closebtnspancart{
+  position: absolute;
+  right: 0;
+  
+  }
+  .couponnamespan{
+  
+  display: flex;
+  justify-content: center;
+  
+  }
+  .couponInput{
+  display: flex;
+  
+  
+  }
+  .couponInputForm{
+    width: 100%;
+  }
+  .couponspanbtn{
+  margin-left: 4em;
+  
+  }
+  
+  .blur {
+    filter: blur(10px); /* Adjust the blur intensity as needed */
+    pointer-events: none; 
+  }
+
+
+
 }

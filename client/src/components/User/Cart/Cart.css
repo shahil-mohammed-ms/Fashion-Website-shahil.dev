@@ -54,3 +54,69 @@ padding-left: 65px;
   padding: 20px;
   
 }
+.coupontag{
+  font-size: medium;
+}
+
+.applycouponbtnspan{
+  display: flex;
+  align-items: flex-end
+
+}
+.applycouponbtn {
+  font-size: small;
+  text-decoration: underline; /* Add underline to the text */
+  cursor: pointer; /* Change the cursor to a pointer on hover */
+}
+
+.applycouponbtn:hover {
+  color: #0066cc; /* Change the text color on hover (you can choose any color you prefer) */
+  text-decoration: none; /* Remove the underline on hover (optional) */
+}
+
+.cartmain{
+position: relative;
+
+}
+.couponcartbox{
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+    border: 2px solid #000; 
+    height: 80px;
+    width: 200px;
+    position: absolute;
+    top: 0;
+    right: 0;
+margin-top: 180px;
+margin-right: 550px;
+position: fixed;
+}
+.closebtnspancart{
+position: absolute;
+right: 0;
+
+}
+.couponnamespan{
+
+display: flex;
+justify-content: center;
+
+}
+.couponInput{
+display: flex;
+
+
+}
+.couponInputForm{
+  width: 100%;
+}
+.couponspanbtn{
+margin-left: 4em;
+
+}
+
+.blur {
+  filter: blur(10px); /* Adjust the blur intensity as needed */
+  pointer-events: none; 
+}

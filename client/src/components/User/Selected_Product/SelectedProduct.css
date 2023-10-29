@@ -53,3 +53,87 @@ padding-top: 30px;
   padding: 20px;
   
 }
+
+
+
+
+
+
+.p-contnt-price{
+
+
+}
+
+.Realdiscount{
+display: flex;
+gap: 0.3em;
+
+}
+
+.realprice{
+
+
+}
+
+.price{
+
+
+}
+
+.mainptag{
+  text-decoration: line-through; /* Add a strikethrough line */
+  color: #888; /* Dull or gray color for the text */
+
+}
+.cpercent{
+  color: green;
+}
+
+.discountpercent{
+
+
+}
+
+.discpercent{
+
+
+}
+
+.dpercenttag{
+
+color: green;
+font-style: normal;
+}
+
+.discountprice{
+
+
+}
+
+.discprice{
+
+
+}
+
+.dptag{
+
+
+}
+
+.couponline{
+
+
+}
+
+.couponprice{
+
+
+}
+
+.coupontag{
+
+display: flex;
+}
+
+
+

@@ -25,7 +25,7 @@ function SelectedProduct() {
 
   //db details for cart
   const [productSizename,setProductSizeName] = useState('')
-  const [product,setProduct] = useState({})
+  const [product,setProduct] = useState([])
   const [category,setCategory] = useState('')
   const [userId,setUserId] = useState('')
   const [userWishlist, setUserWishlist] = useState([]);
@@ -106,7 +106,7 @@ if(queryParams.get('category')==='Mens' || queryParams.get('category')==='Womens
 try{
 const response = await axios.get(`/User/selectedProduct/${proId}`)
 setProduct(response.data[0])
- console.log(response.data[0])
+ 
 
 }catch(e){
   console.log(e)
@@ -212,6 +212,7 @@ const AddtoWistlist = async (proId)=>{
   
   }
  
+  
 
   return (
     <div className="selectedProduct-main">
@@ -231,12 +232,34 @@ const AddtoWistlist = async (proId)=>{
 <div className="p-content">
   <div className="p-content-left">
   <div className="p-content-header">
-    <h1>Your's product</h1>
+    <h1>{product.name}</h1>
    
   </div>
 <div className="p-contnt-price">
+<div className="Realdiscount">
 
-<h3>Rs: {product.price}</h3>
+<div className="discountpercent">
+  <span className="discpercent">
+    <h3 className='dpercenttag' >{product.discound?.discoundPercentage}% off</h3>
+  </span>
+</div>
+<div className="realprice">
+  <span className="price">
+  <h3 className='mainptag' >{product.price}</h3>
+  </span>
+</div>
+<div className="discountprice">
+  <span className="discprice">
+    <h3 className='dptag' >&#8377;{product.price * (1 - product.discound?.discoundPercentage / 100)}</h3>
+  </span>
+</div>
+</div>
+
+<div className="couponline">
+<span className="couponprice">
+  <p className='coupontag' > apply coupon upto &nbsp; <p className="cpercent">10% </p>&nbsp; off  </p>
+</span>
+</div>
 
 </div>
 <div className="p-quantity">

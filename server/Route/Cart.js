@@ -62,7 +62,7 @@ const id =new mongoose.Types.ObjectId (req.params.id)
 
 const cart =await Cart.find({buyerId:id})
 
-const cartProductIds = cart.map(item =>new mongoose.Types.ObjectId(item.productId));
+const cartProductIds = cart.map(item =>new mongoose.Types.ObjectId(item.productId)); 
 
 const products = await Product.find({ _id: { $in: cartProductIds } });
 

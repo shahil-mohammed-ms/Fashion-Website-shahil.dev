@@ -561,10 +561,6 @@ const handleCheckboxChange4 = () => {
         />
 </div>
 
-        
-
- 
-        
         </div>
         <div className="buttonform">  <button className="realbutton" type="submit">
 <span>Click</span>
