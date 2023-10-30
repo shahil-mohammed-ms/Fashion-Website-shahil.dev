@@ -3,6 +3,7 @@ var router = express.Router();
 const mongoose = require('mongoose');
 const Cart = require('../src/db/Models/CartSchema')
 const Product =require('../src/db/Models/ProductSchema')
+const Coupon = require('../src/db/Models/CouponSchema')
 
 
  
@@ -174,12 +175,47 @@ if(product[0].Kidsize.Kidsizes[sizeType]>=count){
   console.log(e)
 }
 
+})
+
+//applying coupon code
+
+router.post('/checkCoupon',async(req,res)=>{
+
+const {couponCode,couponIds} = req.body
+const proId = new mongoose.Types.ObjectId(req.body.proId) 
+
+console.log(couponIds)  
+
+try {
+
+  const coupon = await Coupon.find({code:couponCode})
+if(!coupon){
+  console.log('wrong coupon code')
+  res.json({result:false,replyText:'wrong coupon code'})
+ 
+}else{
+
+  console.log('the coupon Id is',coupon)
+  const isCouponPresent = couponIds.some((couponData) =>new mongoose.Types.ObjectId(couponData).equals(coupon[0]._id)
+);
+console.log(isCouponPresent);
+if(isCouponPresent){
+res.json({result:true,couponPercentage:coupon[0].discount})
+
+}else{
+  res.json({result:false})
+
+}
 
 
+}
+
+  
+} catch (error) {
+  
+}
 
 
 })
-
-
 
 module.exports = router;

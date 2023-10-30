@@ -3,6 +3,7 @@ import { useNavigate,useLocation } from 'react-router-dom';
 import axios from '../../../axios'
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
+import SearchIcon from '@mui/icons-material/Search';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -16,6 +17,7 @@ import './Cart.css'
 import './Cart-Mobile.css'
 
 function Cart() {
+  const [search,setSearch] = useState('')
   // const [count, setCount] = useState(null);
   const [userId,setUserId] = useState(null)
   const [products,setProducts]=useState([])
@@ -28,7 +30,9 @@ const [couponApplied,setCouponApplied] = useState(false)
 const [couponCode,setCouponCode] = useState( null)
 const [productQuantities, setProductQuantities] = useState(products.map(() => 1));
 const [isFrozenAndBlurred, setFrozenAndBlurred] = useState(false);
- 
+ const [proIndex,setProIndex] = useState(0)
+ const [couponDiscount,setCouponDiscount] = useState(0)
+
 // const handleBuy = ()=>{
 
 // navigate(`/payment?userId=${userId}&cartId=${products.cartId}`)
@@ -106,10 +110,13 @@ if(passCount>+1){
     };
   // applying coupon 
 
-    const openApplyCouponBox = async ()=>{
+    const openApplyCouponBox = async (proIdNo)=>{
+      console.log(proIdNo)
+      
       setCouponPressed(!couponPressed)
       setFrozenAndBlurred(!isFrozenAndBlurred);
-
+      setProIndex(proIdNo)
+      console.log('openapplyclicked')
 
 
     }
@@ -124,12 +131,23 @@ if(passCount>+1){
     }
   
 
-    const handleApplyCoupon = async ()=>{
+    const handleApplyCoupon = async (proId)=>{
 
 
       setCouponPressed(!couponPressed)
       setFrozenAndBlurred(!isFrozenAndBlurred);
 
+      const response = await axios.post('/Cart/checkCoupon',{couponCode,proId,couponIds:products[proIndex].productData.coupon.coupons})
+
+console.log(response.data)
+if(response.data.result){
+  setCouponDiscount(response.data.couponPercentage)
+  setCouponApplied(true)
+}else{
+console.log('some thing wrong with coupon code')
+setCouponDiscount(0)
+setCouponApplied(false)
+}
 
 
     }
@@ -137,6 +155,54 @@ if(passCount>+1){
 
   return (
     <div className='cartmain' >
+
+<div className="header">
+<div className="brandlogo"><h2 onClick={()=>navigate('/UserHome')}>fasion-store</h2></div>
+
+<div className="searchbar" onClick={()=>navigate('/Search')} >
+    <input type="text" className="search-input" placeholder="Search..."   />
+    <Fab variant="extended" className="smallFab searchbutton">
+<SearchIcon  />
+</Fab>
+  </div>
+
+
+<div className="headIcons"> 
+
+<div className="headIcons-icon">
+<Fab variant="extended" className="smallFab-mobile mob1">
+h
+</Fab>
+</div>
+
+<div className="headIcons-icon">
+<Fab variant="extended"className="smallFab">
+
+</Fab>
+</div>
+<div className="headIcons-icon">
+<Fab variant="extended"className="smallFab">
+
+</Fab>
+</div>
+<div className="headIcons-icon">
+<Fab variant="extended"className="smallFab">
+
+</Fab></div>
+</div>
+ 
+<div className="profileDetails"> <Box>
+            {/* <Fab variant='extended'className="smallFab">
+
+            </Fab> */}
+            <Fab variant='extended'className="smallFab-mobile">
+p
+            </Fab>
+          </Box>
+         <div className="user-name"><p>Shahil</p></div>
+         </div>
+
+    </div>
       {products.map((product,index)=>(
 
 <div  className={`selectedProduct-main ${isFrozenAndBlurred ? 'blur' : ''}`} key={product._id}>
@@ -176,15 +242,19 @@ if(passCount>+1){
 </div>
 </div>
 
-<div className="couponline">
+{product.productData.coupon?.isCoupon && <div className="couponline">
 <span className="couponprice">
   <p className='coupontag' > apply coupon upto &nbsp; <p className="cpercent">10% </p>&nbsp; off &nbsp;
-  <span className='applycouponbtnspan' onClick={()=>{openApplyCouponBox()} }><p className='applycouponbtn' > &nbsp;apply coupon</p></span>  </p>
+  <span className='applycouponbtnspan' onClick={()=>{openApplyCouponBox(index)} }><p className='applycouponbtn' > &nbsp;apply coupon</p></span>  </p>
 </span>
-</div>
-{true && <p>Coupon discount</p>}
-{/* <h3>Total: {product.productData.price * productQuantities[index]}</h3> */}
-<h3>Total: {product.productData.price * (1 - product.productData.discound?.discoundPercentage / 100) * productQuantities[index]}</h3>
+</div>}
+{product.productData.coupon?.isCoupon && <div style={{display:'flex',}} ><p>Coupon discount </p> {couponApplied && <div style={{display:'flex',}} >
+   <p>&nbsp;of </p> <p className='dpercenttag' >&nbsp; {couponDiscount}%  </p>
+
+</div>} </div> }
+
+{/* <h3>Total: {product.productData.price * (1 - product.productData.discound?.discoundPercentage / 100) *(1 - couponDiscount / 100) * productQuantities[index]}</h3> */}
+<h3>Total: {Math.round(product.productData.price * (1 - (product.productData.discound?.discoundPercentage || 0) / 100) * (1 - couponDiscount / 100) * productQuantities[index])}</h3>
 
 
 </div>
@@ -251,7 +321,7 @@ if(passCount>+1){
 <div className="closebtncart"><span className="closebtnspancart" onClick={closeApplyCouponBox} ><CloseIcon /></span> </div>
 <span className="couponnamespan"><p>Coupon</p> </span>
 <div className="couponInput">
-<form action="" onSubmit={handleApplyCoupon}>
+<form action="" onSubmit={()=>handleApplyCoupon(products[proIndex].productData._id)}>
 
 <input type="text" className="couponInputForm"
 placeholder='type code...'

@@ -53,6 +53,22 @@
     pointer-events: none; 
   }
 
-
-
+  .Realdiscount{
+font-size: medium;
+  }
+.couponline{
+  font-size: smaller !important;
+}
+.couponprice{
+  font-size: smaller !important;
+}
+.coupontag{
+  font-size: smaller !important;
+}
+.p-quantity{
+  padding-top: 3em !important;
+}
+.p-addtocart{
+  padding-left: 2.5em !important;
+}
 }
