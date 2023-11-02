@@ -12,8 +12,23 @@ const orderedProductSchema = mongoose.Schema({
   },
   name:{
     type:String
-  },address:{
-    type:String
+  },
+  address:{
+    house:{
+      type:String
+    },
+    place:{
+      type:String
+    },
+    houseno:{
+      type:String
+    },
+    pincode:{
+      type:Number
+    },
+    phone:{
+      type:Number
+    },
   },
   size:{
     type:String

@@ -19,7 +19,10 @@ const {
   size,
   sellerId,
   name,
+  address,
 } = req.body
+
+console.log(req.body)
 
 const isCOD = COD.toString() === 'COD';  //sb-j5rmb27609535@business.example.com )/Y8rJ@l   
 
@@ -40,6 +43,9 @@ try{
     COD:isCOD,
 
     Totalprice:total,
+
+    address:address
+    
   })
   await order.save()
 

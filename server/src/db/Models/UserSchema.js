@@ -24,6 +24,9 @@ const UserSchema = mongoose.Schema({
   Wishlist:{ 
     type:Array
   }, 
+  Orderedlist:{ 
+    type:Array
+  }, 
   isSeller:{
     type:Boolean,
     default:false,

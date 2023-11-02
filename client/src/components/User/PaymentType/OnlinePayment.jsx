@@ -8,36 +8,48 @@ function OnlinePayment(props) {
 
   const navigate = useNavigate();
   const { proId, userId, cartId, quantity, total, name, size, sellerId } = props.paymentInfo;
+const isAddress = props.isAddress
+const MainAddress = props.MainAddress
+
+console.log(isAddress)
 
   const paypalOptions = {
     'client-id': 'Af383g8lO77fcHhA_9I7jieqFTrBmhUoTj0-XUEiZ4LJUYG5xqoJQl-nvxdfnvGNRcqsiy-hkx8cx9E6',
   };
-
+  
  // Function to handle a successful transaction and send order details to your server
  const handleSuccessfulTransaction = async(details) => {
-  console.log(details)
-  // alert('Transaction completed by ' + details.payer.name.given_name);
-  const response = await axios.post('/Order/addorder',{
-    COD:'Online',
-    proId,
-    userId,
-    cartId,
-    quantity,
-    total,
-    name,
-    size,
-    sellerId
+  if(!isAddress){
+    console.log('no address')
+        }else{
+          console.log('address')
+          console.log(details)
+  
 
-  })
-
-  if(response.data.success){
-
-    navigate('/UserHome')
-  }else{
-    navigate('/cart')
-    
-  }
- 
+          // alert('Transaction completed by ' + details.payer.name.given_name);
+          const response = await axios.post('/Order/addorder',{
+            COD:'Online',
+            proId,
+            userId,
+            cartId,
+            quantity,
+            total,
+            name,
+            size,
+            sellerId,
+            address:MainAddress
+        
+          })
+        
+          if(response.data.success){
+        
+            navigate('/UserHome')
+          }else{
+            navigate('/cart')
+            
+          }
+         
+    }
 };
 
 // Function to handle transaction failures

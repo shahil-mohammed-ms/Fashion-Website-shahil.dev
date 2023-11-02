@@ -279,7 +279,7 @@ p
 
   <div className="p-addtocart"><Box sx={{ '& > :not(style)': { m: 1 } }} onClick={()=>{
     navigate(`/payment?userId=${userId}&cartId=${product.cartId}&proId=${product.productData._id}&quantity=${product.quantity}
-    &name=${product.name}&total=${product.totalPrice}&size=${product.sizeType}&sellerId=${product.productData.sellerId}`)
+    &name=${product.name}&total=${Math.round(product.productData.price * (1 - (product.productData.discound?.discoundPercentage || 0) / 100) * (1 - couponDiscount / 100) * productQuantities[index])}&size=${product.sizeType}&sellerId=${product.productData.sellerId}`)
   }}>
 
 <Fab variant="extended">
