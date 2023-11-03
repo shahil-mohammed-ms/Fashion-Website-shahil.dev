@@ -1,6 +1,9 @@
-import React,{useState} from 'react'
-import { Link, Outlet, useNavigate } from 'react-router-dom';
+import React,{useState,useEffect} from 'react'
+import { Link, Outlet, useNavigate ,useLocation} from 'react-router-dom';
+import jwt_decode from 'jwt-decode';
 import axios from '../../../axios'
+import {useProfileContext} from '../../../context/ProfileContex'
+
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
 import SearchIcon from '@mui/icons-material/Search';
@@ -71,11 +74,43 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 function Home() {
   const navigate = useNavigate();
   const [search,setSearch] = useState('')
+ // const {profileId, setProfileId } = useProfileContextId();
+  const { profile, setProfile,profileId, setProfileId } = useProfileContext();
   //drawer
   const [state, setState] = useState({
    
     left: false,
   });
+
+
+
+  useEffect(()=>{
+    const getData = async()=>{
+      const token = localStorage.getItem('Usertoken');
+      
+      if (token) {
+        // Decode the token to get user details
+        const decodedToken = jwt_decode(token);
+       console.log(decodedToken.userId)
+        setProfileId(decodedToken.userId)
+  
+  const response = await axios.post('/User/getUserDetails',{userId:decodedToken.userId})
+  console.log(response.data)
+  setProfile(response.data)
+  
+
+      
+      }
+    }
+    getData()
+    
+      },[])
+
+
+
+
+
+
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {

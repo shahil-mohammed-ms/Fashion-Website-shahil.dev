@@ -1,6 +1,8 @@
 import React, { useState, useEffect,useRef } from 'react';
 import { useNavigate,useLocation } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
+import {useProfileContext} from '../../../context/ProfileContex'
+
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
@@ -76,6 +78,8 @@ const [loading, setLoading] = useState(false);
 const [page, setPage] = useState(1);
 const [userId,setUserId] = useState(null)
 const [userWishlist, setUserWishlist] = useState([]);
+const { profile } = useProfileContext();
+
 
 useEffect(()=>{
   const getData = async()=>{
@@ -329,7 +333,7 @@ h
 p
               </Fab>
             </Box>
-           <div className="user-name"><p>Shahil</p></div>
+           <div className="user-name"><p>{profile.name}</p></div>
            </div>
 
       </div>

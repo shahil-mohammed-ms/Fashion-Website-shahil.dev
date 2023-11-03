@@ -16,6 +16,7 @@ import PaymentPage from "./pages/User/PaymentPage";
 import EditProductPage from "./pages/Admin/EditProductPage";
 import EditPage from "./pages/Admin/EditPage";
 import SearchPage from "./pages/User/SearchPage";
+import { ProfileContextProvider } from "./context/ProfileContex";
 
 
 import './App.css'
@@ -23,7 +24,9 @@ function App() {
 
   return (
     <div className="App">
-  <Router>
+
+<ProfileContextProvider>
+<Router>
 <Routes>
 <Route path="/UserHome" element={<HomePage/>}/>
 </Routes>
@@ -80,6 +83,9 @@ function App() {
 <Route path="/Search" element={<SearchPage/>}/>
 </Routes>
   </Router>
+
+</ProfileContextProvider>
+  
     </div>
   );
 }
